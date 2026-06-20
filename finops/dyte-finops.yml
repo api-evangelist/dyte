@@ -1,0 +1,109 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Dyte
+providerId: dyte
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Video
+- Voice
+- Real Time
+- WebRTC
+- Communications
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Dyte spend. Dyte bills on a per-participant-minute basis: every
+  participant accrues minutes for the duration they are connected, with separate
+  (lower) rates for audio-only versus video. A recurring monthly free allotment of
+  participant minutes offsets the first slice of usage; recording and livestreaming
+  are metered separately. Cost is driven by participant count multiplied by session
+  duration, so concurrency and meeting length are the primary levers. Dyte is
+  migrating to Cloudflare RealtimeKit, so billing may shift to Cloudflare; rates are
+  not reconciled.
+notes: >-
+  Per-minute rates and add-on (recording/livestreaming/transcription) charges are
+  not reconciled; verify against dyte.io and the Cloudflare RealtimeKit pricing page
+  during reconciliation, since the product is transitioning to Cloudflare.
+sources:
+- https://dyte.io/
+- https://sdk.dyte.in/pricing
+- https://www.cloudflare.com/developer-platform/products/cloudflare-realtime/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Dyte
+serviceCategory: Communications and Real-Time Media
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Dyte
+  ServiceCategory: Communications and Real-Time Media
+  ProviderName: Dyte
+  PublisherName: Dyte
+  InvoiceIssuerName: Dyte
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: video_participant_minutes
+  description: Participant-minutes accrued in video sessions, billed per minute per participant.
+  unit: participant_minutes
+  aggregation: sum
+  dimensions:
+  - organization
+  - meeting
+  - preset
+- name: audio_participant_minutes
+  description: Participant-minutes accrued in audio-only sessions, billed at a lower per-minute rate per participant.
+  unit: participant_minutes
+  aggregation: sum
+  dimensions:
+  - organization
+  - meeting
+  - preset
+- name: free_participant_minutes
+  description: Recurring monthly free participant-minute allotment applied before usage charges.
+  unit: participant_minutes
+  aggregation: sum
+  dimensions:
+  - organization
+- name: recording_minutes
+  description: Minutes of meeting recording produced, metered separately from participant minutes.
+  unit: minutes
+  aggregation: sum
+  dimensions:
+  - organization
+  - meeting
+- name: livestream_minutes
+  description: Minutes of livestreaming (RTMP/HLS) output, metered separately.
+  unit: minutes
+  aggregation: sum
+  dimensions:
+  - organization
+  - meeting
+principles:
+- name: Visibility
+  description: Pull Dyte session/usage data via the Sessions API (minutes_consumed, max concurrent participants) to attribute participant-minute burn per meeting.
+- name: Allocation
+  description: Tag participants with custom_participant_id and presets, and map meetings to internal cost centers/workloads.
+- name: Optimization
+  description: Use audio-only sessions where video is not needed; cap meeting duration and concurrency; record/livestream only when required; stay within the monthly free allotment for low-volume workloads.
+- name: Accountability
+  description: Assign owners per organization/key; review participant-minute spend monthly against budget; plan for the Cloudflare RealtimeKit migration's pricing.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,136 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Dyte
+providerId: dyte
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Video
+- Voice
+- Real Time
+- WebRTC
+- Communications
+- Plans
+description: >-
+  Dyte uses a usage-based, per-participant-minute model. Every account includes
+  a recurring free allotment of 10,000 participant minutes per month; usage
+  beyond that is billed per participant minute, with separate (lower) rates for
+  audio-only versus video sessions. Add-on capabilities such as recording and
+  livestreaming are metered separately. Because Dyte was acquired by Cloudflare
+  and is transitioning to Cloudflare RealtimeKit, published rates may move to
+  Cloudflare's pricing; per-minute rates here are representative and not
+  reconciled.
+notes: >-
+  Representative rates as historically published on Dyte's pricing pages; not
+  reconciled. Verify current pricing on dyte.io / the Cloudflare RealtimeKit
+  pricing page, since the product is migrating to Cloudflare. Recording,
+  livestreaming, and transcription add-on rates are not reconciled here.
+sources:
+- https://dyte.io/
+- https://sdk.dyte.in/pricing
+- https://www.cloudflare.com/developer-platform/products/cloudflare-realtime/
+plans:
+- id: dyte-free
+  name: Free
+  type: free
+  description: >-
+    Full access to the Dyte platform with a recurring free allotment of
+    participant minutes refreshed every month.
+  entries:
+  - label: Free Participant Minutes
+    name: free_minutes
+    type: free
+    metric: participant_minutes
+    limit: 10000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.00
+    userMultiplied: true
+  elements:
+  - name: Meetings
+  - name: Participants
+  - name: Recordings
+  - name: Livestreams
+  - name: Webhooks
+- id: dyte-pay-as-you-go
+  name: Pay-as-you-go
+  type: usage
+  description: >-
+    Per-participant-minute usage billed after the monthly free allotment is
+    consumed, with separate rates for video and audio-only sessions.
+  entries:
+  - label: Video Participant Minutes
+    name: video_minutes
+    type: usage
+    metric: participant_minutes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000
+    price: ~$4 per 1,000 video participant minutes (reconciled false)
+    userMultiplied: true
+  - label: Audio Participant Minutes
+    name: audio_minutes
+    type: usage
+    metric: participant_minutes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000
+    price: ~$1 per 1,000 audio participant minutes (reconciled false)
+    userMultiplied: true
+  - label: Recording
+    name: recording_minutes
+    type: usage
+    metric: minutes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: metered separately (reconciled false)
+    userMultiplied: false
+  - label: Livestreaming
+    name: livestream_minutes
+    type: usage
+    metric: minutes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: metered separately (reconciled false)
+    userMultiplied: false
+  elements:
+  - name: Meetings
+  - name: Participants
+  - name: Sessions
+  - name: Recordings
+  - name: Livestreams
+  - name: Webhooks
+- id: dyte-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Volume commitments, committed-use discounts, dedicated support, and custom
+    terms. As Dyte joins Cloudflare, enterprise engagements are directed toward
+    Cloudflare RealtimeKit. Contact sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Volume Pricing
+  - name: Dedicated Support
+  - name: Cloudflare RealtimeKit Migration
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,64 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Dyte
+providerId: dyte
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Video
+- Voice
+- Real Time
+- WebRTC
+- Communications
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Dyte's v2 REST API is authenticated with HTTP Basic auth (organizationId:apiKey)
+  and enforces per-organization rate limits on management calls (creating meetings,
+  adding participants, starting recordings/livestreams, querying sessions). Concurrent
+  usage is governed primarily by the participant-minute model and per-meeting
+  concurrency rather than per-second request quotas. Specific numeric per-endpoint
+  limits are not published in detail and are not reconciled in this artifact, and
+  may change as the platform migrates to Cloudflare RealtimeKit.
+notes: >-
+  Verify per-endpoint REST limits and per-meeting concurrency caps in Dyte / Cloudflare
+  RealtimeKit documentation on reconciliation. The product is transitioning to
+  Cloudflare RealtimeKit; limits may be superseded by Cloudflare quotas.
+sources:
+- https://docs.dyte.io/
+- https://docs.dyte.io/guides/rest-apis/quickstart
+- https://www.cloudflare.com/developer-platform/products/cloudflare-realtime/
+responseCodes:
+  throttled: 429
+limits:
+- name: REST API Requests
+  scope: organization
+  metric: requests
+  limit: see provider documentation
+  notes: Management API calls (meetings, participants, recordings, livestreams, sessions, webhooks) are rate limited per organization; numeric values not published.
+- name: Concurrent Participants per Meeting
+  scope: meeting
+  metric: participants
+  limit: see provider documentation
+  notes: Concurrency caps vary by plan and meeting type (group call vs. webinar/livestream).
+- name: Concurrent Meetings
+  scope: organization
+  metric: meetings
+  limit: see provider documentation
+  notes: Number of simultaneously active meetings varies by plan.
+- name: Webhook Subscriptions
+  scope: organization
+  metric: webhooks
+  limit: see provider documentation
+  notes: Number of registered webhook endpoints per organization.
+policies:
+- name: Tiered Limits
+  description: Limits and concurrency raise from free to paid and Enterprise / Cloudflare RealtimeKit agreements.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,999 @@
+{
+  "item": [
+    {
+      "id": "2949670b-cb92-46e2-b086-0a0d5a4addce",
+      "name": "Meetings",
+      "item": [
+        {
+          "id": "e0cdbddd-2fe7-426c-807d-342d52594dff",
+          "name": "Create a meeting",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/meetings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "meetings"
+              ]
+            },
+            "description": "Create a meeting",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Weekly Standup\",\n  \"preferred_region\": \"ap-south-1\",\n  \"record_on_start\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "0d57bc7f-5d69-4447-880c-78bbc2e0c109",
+          "name": "Fetch all meetings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/meetings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "meetings"
+              ]
+            },
+            "description": "Fetch all meetings"
+          },
+          "response": []
+        },
+        {
+          "id": "17f3e0fe-3c81-4150-8e83-6cc53bfadd1f",
+          "name": "Fetch a meeting",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/meetings/:meetingId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "meetings",
+                ":meetingId"
+              ],
+              "variable": [
+                {
+                  "key": "meetingId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Fetch a meeting"
+          },
+          "response": []
+        },
+        {
+          "id": "82023276-e144-4de5-8164-ce4c6e7421e2",
+          "name": "Update a meeting",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/meetings/:meetingId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "meetings",
+                ":meetingId"
+              ],
+              "variable": [
+                {
+                  "key": "meetingId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Update a meeting",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Renamed Meeting\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "a96f33a1-9f16-4a7d-a684-faaf7d957bd3",
+      "name": "Participants",
+      "item": [
+        {
+          "id": "dec05ac7-a049-487c-9f48-dcdfda806015",
+          "name": "Add a participant (returns auth token)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/meetings/:meetingId/participants",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "meetings",
+                ":meetingId",
+                "participants"
+              ],
+              "variable": [
+                {
+                  "key": "meetingId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Add a participant (returns auth token)",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Doe\",\n  \"preset_name\": \"group_call_host\",\n  \"custom_participant_id\": \"user-123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "68ec2ce1-2336-4563-8d78-12b65bcb2b2e",
+          "name": "Fetch all participants",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/meetings/:meetingId/participants",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "meetings",
+                ":meetingId",
+                "participants"
+              ],
+              "variable": [
+                {
+                  "key": "meetingId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Fetch all participants"
+          },
+          "response": []
+        },
+        {
+          "id": "9647fad3-a434-4824-8ed8-515a6fa40538",
+          "name": "Fetch a participant",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/meetings/:meetingId/participants/:participantId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "meetings",
+                ":meetingId",
+                "participants",
+                ":participantId"
+              ],
+              "variable": [
+                {
+                  "key": "meetingId",
+                  "value": ""
+                },
+                {
+                  "key": "participantId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Fetch a participant"
+          },
+          "response": []
+        },
+        {
+          "id": "18c7b765-4495-4fb5-a553-cee68cc0d7c4",
+          "name": "Edit a participant",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/meetings/:meetingId/participants/:participantId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "meetings",
+                ":meetingId",
+                "participants",
+                ":participantId"
+              ],
+              "variable": [
+                {
+                  "key": "meetingId",
+                  "value": ""
+                },
+                {
+                  "key": "participantId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Edit a participant",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"preset_name\": \"group_call_participant\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "3a7ebfc4-1e22-4839-8ccc-658566decb55",
+          "name": "Delete a participant",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/meetings/:meetingId/participants/:participantId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "meetings",
+                ":meetingId",
+                "participants",
+                ":participantId"
+              ],
+              "variable": [
+                {
+                  "key": "meetingId",
+                  "value": ""
+                },
+                {
+                  "key": "participantId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Delete a participant"
+          },
+          "response": []
+        },
+        {
+          "id": "847ee6f6-2020-4a92-8d13-cd5eee1134e9",
+          "name": "Regenerate a participant auth token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/meetings/:meetingId/participants/:participantId/token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "meetings",
+                ":meetingId",
+                "participants",
+                ":participantId",
+                "token"
+              ],
+              "variable": [
+                {
+                  "key": "meetingId",
+                  "value": ""
+                },
+                {
+                  "key": "participantId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Regenerate a participant auth token"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "c647f471-865a-4010-b6f2-7ee4d938a6d0",
+      "name": "Sessions",
+      "item": [
+        {
+          "id": "c57f983e-6c0c-4d1e-9476-e83ff88a8643",
+          "name": "Fetch all sessions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/sessions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "sessions"
+              ]
+            },
+            "description": "Fetch all sessions"
+          },
+          "response": []
+        },
+        {
+          "id": "65886e3c-86e2-4929-98ef-43e002d71f45",
+          "name": "Fetch a session",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/sessions/:sessionId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "sessions",
+                ":sessionId"
+              ],
+              "variable": [
+                {
+                  "key": "sessionId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Fetch a session"
+          },
+          "response": []
+        },
+        {
+          "id": "ecb29de1-2e70-447d-bd24-20bd4c27ca91",
+          "name": "Fetch session participants",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/sessions/:sessionId/participants",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "sessions",
+                ":sessionId",
+                "participants"
+              ],
+              "variable": [
+                {
+                  "key": "sessionId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Fetch session participants"
+          },
+          "response": []
+        },
+        {
+          "id": "dc50f1b1-607f-4564-8292-7d4b58c75d83",
+          "name": "Fetch active session for a meeting",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/active-sessions/:meetingId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "active-sessions",
+                ":meetingId"
+              ],
+              "variable": [
+                {
+                  "key": "meetingId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Fetch active session for a meeting"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "37e7ffd1-a70c-4719-b094-c17147214400",
+      "name": "Recordings",
+      "item": [
+        {
+          "id": "f69543b3-e0d4-4ce1-97d1-0d29c7a2ceff",
+          "name": "Start a recording",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/recordings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "recordings"
+              ]
+            },
+            "description": "Start a recording",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"meeting_id\": \"{{meetingId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "afdddd22-bbc1-48eb-a047-d0973099daec",
+          "name": "Fetch all recordings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/recordings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "recordings"
+              ]
+            },
+            "description": "Fetch all recordings"
+          },
+          "response": []
+        },
+        {
+          "id": "4ed7d1a6-56e6-4bab-9c29-35a846acfe42",
+          "name": "Fetch a recording",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/recordings/:recordingId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "recordings",
+                ":recordingId"
+              ],
+              "variable": [
+                {
+                  "key": "recordingId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Fetch a recording"
+          },
+          "response": []
+        },
+        {
+          "id": "2b715a96-b823-4c95-86a6-4d3eb7be4455",
+          "name": "Stop or update a recording",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/recordings/:recordingId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "recordings",
+                ":recordingId"
+              ],
+              "variable": [
+                {
+                  "key": "recordingId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Stop or update a recording",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"stop\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "9ac930b9-6f8d-4abd-8ed2-4fc00c819c49",
+          "name": "Fetch active recording for a meeting",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/recordings/active-recordings/:meetingId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "recordings",
+                "active-recordings",
+                ":meetingId"
+              ],
+              "variable": [
+                {
+                  "key": "meetingId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Fetch active recording for a meeting"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "e644f3f2-2de2-4567-b5f8-99fbd0073dc2",
+      "name": "Livestreams",
+      "item": [
+        {
+          "id": "9a6d66cd-17bd-4797-94aa-f2f7349d8ba0",
+          "name": "Create and start a livestream",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/meetings/:meetingId/livestreams",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "meetings",
+                ":meetingId",
+                "livestreams"
+              ],
+              "variable": [
+                {
+                  "key": "meetingId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Create and start a livestream",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"My Livestream\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "9c935334-26d2-4b61-bd9b-1c311b392933",
+          "name": "Fetch all livestreams for a meeting",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/meetings/:meetingId/livestreams",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "meetings",
+                ":meetingId",
+                "livestreams"
+              ],
+              "variable": [
+                {
+                  "key": "meetingId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Fetch all livestreams for a meeting"
+          },
+          "response": []
+        },
+        {
+          "id": "af1f317c-548e-43d9-995f-3786b7af7097",
+          "name": "Fetch active livestream",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/meetings/:meetingId/active-livestream",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "meetings",
+                ":meetingId",
+                "active-livestream"
+              ],
+              "variable": [
+                {
+                  "key": "meetingId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Fetch active livestream"
+          },
+          "response": []
+        },
+        {
+          "id": "0db3d7dc-de1b-4cc0-83cc-9960ade018cc",
+          "name": "Stop the active livestream",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/meetings/:meetingId/active-livestream/stop",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "meetings",
+                ":meetingId",
+                "active-livestream",
+                "stop"
+              ],
+              "variable": [
+                {
+                  "key": "meetingId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Stop the active livestream"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "461bfa2b-f0fb-48b7-ab71-12929c289a13",
+      "name": "Webhooks",
+      "item": [
+        {
+          "id": "3bedea72-15d0-453e-8407-ead42f75c2f2",
+          "name": "Add a webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/webhooks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "webhooks"
+              ]
+            },
+            "description": "Add a webhook",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"my-webhook\",\n  \"url\": \"https://example.com/dyte-webhook\",\n  \"events\": [\"meeting.participantJoined\", \"recording.statusUpdate\"]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "73b9c178-c7e6-47f9-9d70-e822f9a2bf7d",
+          "name": "Fetch all webhooks",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/webhooks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "webhooks"
+              ]
+            },
+            "description": "Fetch all webhooks"
+          },
+          "response": []
+        },
+        {
+          "id": "0d465a82-5357-44f3-861d-34705f460912",
+          "name": "Edit a webhook",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/webhooks/:webhookId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "webhooks",
+                ":webhookId"
+              ],
+              "variable": [
+                {
+                  "key": "webhookId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Edit a webhook",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"events\": [\"meeting.ended\"]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "b0d6ef5c-a03a-4873-8111-f340ae64609f",
+          "name": "Delete a webhook",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v2/webhooks/:webhookId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "v2",
+                "webhooks",
+                ":webhookId"
+              ],
+              "variable": [
+                {
+                  "key": "webhookId",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Delete a webhook"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dyte.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{organizationId}}"
+      },
+      {
+        "key": "password",
+        "value": "{{apiKey}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3d6b8fb2-64d9-47e8-9db1-a5621f05b277",
+    "name": "Dyte v2 REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Server-side v2 REST API for the Dyte live video and voice platform. HTTP Basic auth using base64(organizationId:apiKey). Note: Dyte was acquired by Cloudflare and is transitioning to Cloudflare RealtimeKit; the Dyte v2 API is in maintenance mode.",
+      "type": "text/plain"
+    }
+  }
+}

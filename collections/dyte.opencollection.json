@@ -1,0 +1,397 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dyte v2 REST API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{organizationId}}",
+      "password": "{{apiKey}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Meetings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dyte.io/v2/meetings",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"title\": \"Weekly Standup\",\n  \"preferred_region\": \"ap-south-1\",\n  \"record_on_start\": false\n}"
+            }
+          },
+          "docs": "Create a meeting"
+        },
+        {
+          "info": {
+            "name": "Fetch all meetings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/meetings"
+          },
+          "docs": "Fetch all meetings"
+        },
+        {
+          "info": {
+            "name": "Fetch a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId"
+          },
+          "docs": "Fetch a meeting"
+        },
+        {
+          "info": {
+            "name": "Update a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"title\": \"Renamed Meeting\"\n}"
+            }
+          },
+          "docs": "Update a meeting"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Participants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add a participant (returns auth token)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/participants",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"Jane Doe\",\n  \"preset_name\": \"group_call_host\",\n  \"custom_participant_id\": \"user-123\"\n}"
+            }
+          },
+          "docs": "Add a participant (returns auth token)"
+        },
+        {
+          "info": {
+            "name": "Fetch all participants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/participants"
+          },
+          "docs": "Fetch all participants"
+        },
+        {
+          "info": {
+            "name": "Fetch a participant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/participants/:participantId"
+          },
+          "docs": "Fetch a participant"
+        },
+        {
+          "info": {
+            "name": "Edit a participant",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/participants/:participantId",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"preset_name\": \"group_call_participant\"\n}"
+            }
+          },
+          "docs": "Edit a participant"
+        },
+        {
+          "info": {
+            "name": "Delete a participant",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/participants/:participantId"
+          },
+          "docs": "Delete a participant"
+        },
+        {
+          "info": {
+            "name": "Regenerate a participant auth token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/participants/:participantId/token"
+          },
+          "docs": "Regenerate a participant auth token"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch all sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/sessions"
+          },
+          "docs": "Fetch all sessions"
+        },
+        {
+          "info": {
+            "name": "Fetch a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/sessions/:sessionId"
+          },
+          "docs": "Fetch a session"
+        },
+        {
+          "info": {
+            "name": "Fetch session participants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/sessions/:sessionId/participants"
+          },
+          "docs": "Fetch session participants"
+        },
+        {
+          "info": {
+            "name": "Fetch active session for a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/active-sessions/:meetingId"
+          },
+          "docs": "Fetch active session for a meeting"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Recordings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Start a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dyte.io/v2/recordings",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"meeting_id\": \"{{meetingId}}\"\n}"
+            }
+          },
+          "docs": "Start a recording"
+        },
+        {
+          "info": {
+            "name": "Fetch all recordings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/recordings"
+          },
+          "docs": "Fetch all recordings"
+        },
+        {
+          "info": {
+            "name": "Fetch a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/recordings/:recordingId"
+          },
+          "docs": "Fetch a recording"
+        },
+        {
+          "info": {
+            "name": "Stop or update a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.dyte.io/v2/recordings/:recordingId",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"action\": \"stop\"\n}"
+            }
+          },
+          "docs": "Stop or update a recording"
+        },
+        {
+          "info": {
+            "name": "Fetch active recording for a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/recordings/active-recordings/:meetingId"
+          },
+          "docs": "Fetch active recording for a meeting"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Livestreams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create and start a livestream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/livestreams",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"My Livestream\"\n}"
+            }
+          },
+          "docs": "Create and start a livestream"
+        },
+        {
+          "info": {
+            "name": "Fetch all livestreams for a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/livestreams"
+          },
+          "docs": "Fetch all livestreams for a meeting"
+        },
+        {
+          "info": {
+            "name": "Fetch active livestream",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/active-livestream"
+          },
+          "docs": "Fetch active livestream"
+        },
+        {
+          "info": {
+            "name": "Stop the active livestream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/active-livestream/stop"
+          },
+          "docs": "Stop the active livestream"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dyte.io/v2/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"my-webhook\",\n  \"url\": \"https://example.com/dyte-webhook\",\n  \"events\": [\"meeting.participantJoined\", \"recording.statusUpdate\"]\n}"
+            }
+          },
+          "docs": "Add a webhook"
+        },
+        {
+          "info": {
+            "name": "Fetch all webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/webhooks"
+          },
+          "docs": "Fetch all webhooks"
+        },
+        {
+          "info": {
+            "name": "Edit a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dyte.io/v2/webhooks/:webhookId",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"events\": [\"meeting.ended\"]\n}"
+            }
+          },
+          "docs": "Edit a webhook"
+        },
+        {
+          "info": {
+            "name": "Delete a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.dyte.io/v2/webhooks/:webhookId"
+          },
+          "docs": "Delete a webhook"
+        }
+      ]
+    }
+  ]
+}

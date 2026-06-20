@@ -1,0 +1,165 @@
+aid: dyte
+url: https://raw.githubusercontent.com/api-evangelist/dyte/refs/heads/main/apis.yml
+name: Dyte
+kind: company
+description: Dyte is a live video and voice developer platform offering client SDKs
+  plus a v2 REST API for programmatically creating meetings, adding participants and
+  issuing their auth tokens, querying completed sessions, and managing recordings,
+  livestreams, and webhooks. Dyte was acquired by Cloudflare in 2025 and is transitioning
+  into Cloudflare RealtimeKit; the Dyte SDKs and APIs are in maintenance mode.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Video
+- Voice
+- Real Time
+- WebRTC
+- SDK
+- Communications
+created: '2026-06-20'
+modified: '2026-06-20'
+specificationVersion: '0.19'
+apis:
+- aid: dyte:meetings
+  name: Dyte Meetings API
+  tags:
+  - Meetings
+  - Rooms
+  - Real Time
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.dyte.io/api
+  baseURL: https://api.dyte.io/v2
+  properties:
+  - url: https://docs.dyte.io/guides/rest-apis/quickstart
+    type: Documentation
+  - url: https://docs.dyte.io/api
+    type: APIReference
+  - url: openapi/dyte-openapi.yml
+    type: OpenAPI
+  - url: collections/dyte.postman_collection.json
+    type: PostmanCollection
+  description: Create, list, fetch, and update video/voice meeting rooms in an organization
+    via the v2 REST API. A meeting ID is the anchor for adding participants, recordings,
+    and livestreams.
+- aid: dyte:participants
+  name: Dyte Participants API
+  tags:
+  - Participants
+  - Auth Tokens
+  - Presets
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.dyte.io/api
+  baseURL: https://api.dyte.io/v2
+  properties:
+  - url: https://docs.dyte.io/guides/rest-apis/quickstart
+    type: Documentation
+  - url: https://docs.dyte.io/api
+    type: APIReference
+  - url: openapi/dyte-openapi.yml
+    type: OpenAPI
+  - url: collections/dyte.postman_collection.json
+    type: PostmanCollection
+  description: Add participants to a meeting and receive the auth token required to
+    initialize the frontend SDKs, plus list, fetch, edit, delete, and regenerate
+    participant tokens against an assigned preset.
+- aid: dyte:sessions
+  name: Dyte Sessions API
+  tags:
+  - Sessions
+  - Analytics
+  - History
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.dyte.io/api
+  baseURL: https://api.dyte.io/v2
+  properties:
+  - url: https://docs.dyte.io/guides/v2-migration-guide
+    type: Documentation
+  - url: https://docs.dyte.io/api
+    type: APIReference
+  - url: openapi/dyte-openapi.yml
+    type: OpenAPI
+  - url: collections/dyte.postman_collection.json
+    type: PostmanCollection
+  description: Retrieve information about completed meetings (sessions) across an organization,
+    including participant lists and details, plus active-session lookups for ongoing
+    meetings. Responses are paginated.
+- aid: dyte:recordings
+  name: Dyte Recordings API
+  tags:
+  - Recordings
+  - Storage
+  - S3
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.dyte.io/api
+  baseURL: https://api.dyte.io/v2
+  properties:
+  - url: https://docs.dyte.io/guides/capabilities/recording/start-recording
+    type: Documentation
+  - url: https://docs.dyte.io/api
+    type: APIReference
+  - url: openapi/dyte-openapi.yml
+    type: OpenAPI
+  - url: collections/dyte.postman_collection.json
+    type: PostmanCollection
+  description: Start, stop, list, and fetch meeting recordings with optional custom
+    (e.g. AWS S3) storage configuration. Recording status updates are delivered
+    asynchronously via webhooks.
+- aid: dyte:livestreams
+  name: Dyte Livestreams API
+  tags:
+  - Livestreams
+  - RTMP
+  - HLS
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.dyte.io/guides/rest-apis/livestream-dyte-meeting
+  baseURL: https://api.dyte.io/v2
+  properties:
+  - url: https://docs.dyte.io/guides/rest-apis/livestream-dyte-meeting
+    type: Documentation
+  - url: https://docs.dyte.io/api
+    type: APIReference
+  - url: openapi/dyte-openapi.yml
+    type: OpenAPI
+  - url: collections/dyte.postman_collection.json
+    type: PostmanCollection
+  description: Create and manage livestreams for a meeting - start streaming, fetch
+    active-livestream status with ingest/playback details, stop a livestream, and
+    list a meeting's livestreams.
+- aid: dyte:webhooks
+  name: Dyte Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  - Callbacks
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.dyte.io/api
+  baseURL: https://api.dyte.io/v2
+  properties:
+  - url: https://docs.dyte.io/guides/rest-apis/quickstart
+    type: Documentation
+  - url: https://docs.dyte.io/api
+    type: APIReference
+  - url: openapi/dyte-openapi.yml
+    type: OpenAPI
+  - url: collections/dyte.postman_collection.json
+    type: PostmanCollection
+  description: Register, list, update, and delete webhook subscriptions that push
+    real-time events (participant joined/left, recording completed, and more) to
+    your application endpoint.
+common:
+- type: GitHubOrganization
+  url: https://github.com/dyte-io
+- type: LinkedIn
+  url: https://www.linkedin.com/company/dyteio
+- type: Website
+  url: https://dyte.io/
+- type: Documentation
+  url: https://docs.dyte.io/
+- type: Plans
+  url: plans/dyte-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/dyte-rate-limits.yml
+- type: FinOps
+  url: finops/dyte-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

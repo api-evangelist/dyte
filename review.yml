@@ -1,0 +1,107 @@
+aid: dyte
+name: Dyte
+review:
+  question: Does Dyte expose a documented public WebSocket / streaming server API in scope for AsyncAPI?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    Dyte's server-side surface in scope for this catalog is the v2 REST API at
+    https://api.dyte.io/v2 (HTTP Basic auth). Dyte does provide outbound
+    webhooks (HTTP callbacks) for events such as meeting.started, participant
+    joined/left, and recording/livestreaming status updates - these are
+    server-to-client HTTP POSTs and are modeled as a Webhooks REST resource in
+    the OpenAPI, not as an AsyncAPI document. Dyte's realtime media transport
+    (WebRTC) and any signaling WebSockets are internal to the client SDKs and
+    are not a documented public developer API surface, so no AsyncAPI document
+    was authored.
+findings:
+  summary: |
+    Dyte is a live video and voice platform whose public, documented server-side
+    developer API is the v2 REST API (https://api.dyte.io/v2), authenticated with
+    HTTP Basic auth using base64(organizationId:apiKey). It covers meetings,
+    participants (including issuing/refreshing the SDK auth token), sessions,
+    recordings, livestreams, and webhooks. Realtime audio/video is delivered over
+    WebRTC through the client SDKs, but no public, documented WebSocket REST API
+    is published for developers to call directly. Event delivery to applications
+    is via outbound webhooks (HTTP POST callbacks), modeled as a REST resource.
+  acquisitionStatus: |
+    Dyte was acquired by Cloudflare (announced April 2025) and its products are
+    transitioning into Cloudflare RealtimeKit. The existing Dyte SDKs and v2 REST
+    API remain documented and operational but are in maintenance mode and no
+    longer receive feature updates or bug fixes; new development is directed to
+    Cloudflare RealtimeKit. This catalog documents the still-live Dyte v2 REST API
+    as of the review date and flags the migration throughout.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.dyte.io/v2
+      documented: true
+    - protocol: Webhooks
+      scheme: https
+      note: Outbound HTTP POST callbacks for meeting/participant/recording/livestream events. Server-to-application, not a callable WebSocket API.
+      documented: true
+    - protocol: WebRTC
+      scheme: udp/tls
+      documented: false
+      note: Realtime media transport handled internally by Dyte client SDKs; not a public developer-callable API surface.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No public, documented WebSocket REST endpoint is published for direct developer use. SDK signaling is internal.
+  endpointsConfirmedRest:
+    - POST   https://api.dyte.io/v2/meetings
+    - GET    https://api.dyte.io/v2/meetings
+    - GET    https://api.dyte.io/v2/meetings/{meetingId}
+    - PATCH  https://api.dyte.io/v2/meetings/{meetingId}
+    - POST   https://api.dyte.io/v2/meetings/{meetingId}/participants
+    - GET    https://api.dyte.io/v2/meetings/{meetingId}/participants
+    - GET    https://api.dyte.io/v2/meetings/{meetingId}/participants/{participantId}
+    - PATCH  https://api.dyte.io/v2/meetings/{meetingId}/participants/{participantId}
+    - DELETE https://api.dyte.io/v2/meetings/{meetingId}/participants/{participantId}
+    - GET    https://api.dyte.io/v2/sessions
+    - GET    https://api.dyte.io/v2/sessions/{sessionId}
+    - GET    https://api.dyte.io/v2/sessions/{sessionId}/participants
+    - GET    https://api.dyte.io/v2/active-sessions/{meetingId}
+    - POST   https://api.dyte.io/v2/recordings
+    - GET    https://api.dyte.io/v2/recordings
+    - GET    https://api.dyte.io/v2/recordings/{recordingId}
+    - PUT    https://api.dyte.io/v2/recordings/{recordingId}
+    - GET    https://api.dyte.io/v2/recordings/active-recordings/{meetingId}
+    - POST   https://api.dyte.io/v2/meetings/{meetingId}/livestreams
+    - GET    https://api.dyte.io/v2/meetings/{meetingId}/livestreams
+    - GET    https://api.dyte.io/v2/meetings/{meetingId}/active-livestream
+    - POST   https://api.dyte.io/v2/meetings/{meetingId}/active-livestream/stop
+    - POST   https://api.dyte.io/v2/webhooks
+    - GET    https://api.dyte.io/v2/webhooks
+    - PATCH  https://api.dyte.io/v2/webhooks/{webhookId}
+    - DELETE https://api.dyte.io/v2/webhooks/{webhookId}
+sources:
+  - url: https://docs.dyte.io/
+    type: Documentation
+    note: Overview of the v2 REST API; lists base URL https://api.dyte.io/v2 and Basic auth.
+  - url: https://docs.dyte.io/guides/rest-apis/quickstart
+    type: Documentation
+    note: Quickstart confirms Basic auth (base64 organizationId:apiKey), create meeting, add participant (returns token), start recording, create webhook.
+  - url: https://docs.dyte.io/guides/v2-migration-guide
+    type: Documentation
+    note: Confirms meetings/participants/sessions/recordings/livestreams/webhooks endpoint set and pagination.
+  - url: https://docs.dyte.io/guides/rest-apis/livestream-dyte-meeting
+    type: Documentation
+    note: Confirms livestream endpoints under /meetings/{meetingId}/livestreams and active-livestream.
+  - url: https://blog.cloudflare.com/introducing-cloudflare-realtime-and-realtimekit/
+    type: Announcement
+    note: Cloudflare acquisition of Dyte and transition to RealtimeKit; Dyte SDKs in maintenance mode.
+  - url: https://docs.dyte.io/guides/realtimekit-migration/sdk-guide
+    type: Documentation
+    note: Dyte to Cloudflare RealtimeKit migration guidance.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No public, documented WebSocket or streaming server API surface exists for
+    Dyte. Event delivery is via outbound webhooks (modeled as a REST resource in
+    the OpenAPI), and realtime media is WebRTC handled inside the client SDKs.
+    Therefore no AsyncAPI document was authored. The catalog documents the live
+    v2 REST API and notes the Cloudflare RealtimeKit acquisition/transition.
