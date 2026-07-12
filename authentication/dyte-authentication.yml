@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/dyte-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: HTTP Basic auth using the base64-encoded string organizationId:apiKey (organizationId
+    as the username, apiKey as the password).
+  sources:
+  - openapi/dyte-openapi.yml

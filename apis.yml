@@ -146,6 +146,10 @@ apis:
     real-time events (participant joined/left, recording completed, and more) to
     your application endpoint.
 common:
+- type: DomainSecurity
+  url: security/dyte-domain-security.yml
+- type: Authentication
+  url: authentication/dyte-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/dyte-io
 - type: LinkedIn
