@@ -146,6 +146,8 @@ apis:
     real-time events (participant joined/left, recording completed, and more) to
     your application endpoint.
 common:
+- type: AgenticAccess
+  url: agentic-access/dyte-agentic-access.yml
 - type: DomainSecurity
   url: security/dyte-domain-security.yml
 - type: Authentication
