@@ -1,0 +1,265 @@
+openapi: 3.0.1
+info:
+  title: Dyte v2 REST Livestreams Participants API
+  description: Server-side v2 REST API for the Dyte live video and voice platform. Use it to create and manage meetings, add participants and issue the auth tokens that initialize the frontend SDKs, query completed sessions, and manage recordings, livestreams, and webhooks. Authentication is HTTP Basic with the base64-encoded string organizationId:apiKey. Dyte was acquired by Cloudflare in 2025 and is transitioning to Cloudflare RealtimeKit; the Dyte v2 API is in maintenance mode.
+  termsOfService: https://dyte.io/terms
+  contact:
+    name: Dyte Support
+    url: https://docs.dyte.io/
+  version: '2.0'
+servers:
+- url: https://api.dyte.io/v2
+  description: Dyte v2 production API
+security:
+- basicAuth: []
+tags:
+- name: Participants
+  description: Add participants and issue/refresh their SDK auth tokens.
+paths:
+  /meetings/{meetingId}/participants:
+    parameters:
+    - $ref: '#/components/parameters/MeetingId'
+    get:
+      operationId: listParticipants
+      tags:
+      - Participants
+      summary: Fetch all participants in a meeting
+      responses:
+        '200':
+          description: A list of participants.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantListResponse'
+    post:
+      operationId: addParticipant
+      tags:
+      - Participants
+      summary: Add a participant
+      description: Adds a participant to the meeting and returns an auth token used to initialize the frontend SDKs.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddParticipantRequest'
+      responses:
+        '201':
+          description: Participant added.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /meetings/{meetingId}/participants/{participantId}:
+    parameters:
+    - $ref: '#/components/parameters/MeetingId'
+    - $ref: '#/components/parameters/ParticipantId'
+    get:
+      operationId: getParticipant
+      tags:
+      - Participants
+      summary: Fetch a participant
+      responses:
+        '200':
+          description: Participant details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateParticipant
+      tags:
+      - Participants
+      summary: Edit a participant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateParticipantRequest'
+      responses:
+        '200':
+          description: Participant updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantResponse'
+    delete:
+      operationId: deleteParticipant
+      tags:
+      - Participants
+      summary: Delete a participant
+      responses:
+        '200':
+          description: Participant deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /meetings/{meetingId}/participants/{participantId}/token:
+    parameters:
+    - $ref: '#/components/parameters/MeetingId'
+    - $ref: '#/components/parameters/ParticipantId'
+    post:
+      operationId: regenerateParticipantToken
+      tags:
+      - Participants
+      summary: Regenerate a participant auth token
+      description: Issues a fresh auth token for an existing participant.
+      responses:
+        '200':
+          description: New token issued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantTokenResponse'
+components:
+  responses:
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ParticipantResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Participant'
+    ParticipantListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Participant'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Paging:
+      type: object
+      properties:
+        total_count:
+          type: integer
+        start_offset:
+          type: integer
+        end_offset:
+          type: integer
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    AddParticipantRequest:
+      type: object
+      required:
+      - preset_name
+      properties:
+        name:
+          type: string
+          example: Jane Doe
+        picture:
+          type: string
+          format: uri
+        preset_name:
+          type: string
+          description: Name of the preset that defines this participant's permissions.
+          example: group_call_host
+        custom_participant_id:
+          type: string
+          description: Your application's identifier for the participant.
+    ParticipantTokenResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: object
+          properties:
+            token:
+              type: string
+    UpdateParticipantRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        picture:
+          type: string
+          format: uri
+        preset_name:
+          type: string
+    Participant:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        picture:
+          type: string
+          format: uri
+        preset_name:
+          type: string
+        custom_participant_id:
+          type: string
+        token:
+          type: string
+          description: Auth token used to initialize the frontend SDKs.
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+  parameters:
+    MeetingId:
+      name: meetingId
+      in: path
+      required: true
+      description: Unique meeting identifier.
+      schema:
+        type: string
+        format: uuid
+    ParticipantId:
+      name: participantId
+      in: path
+      required: true
+      description: Unique participant identifier.
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth using the base64-encoded string organizationId:apiKey (organizationId as the username, apiKey as the password).

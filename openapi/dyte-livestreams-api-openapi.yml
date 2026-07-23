@@ -1,0 +1,148 @@
+openapi: 3.0.1
+info:
+  title: Dyte v2 REST Livestreams API
+  description: Server-side v2 REST API for the Dyte live video and voice platform. Use it to create and manage meetings, add participants and issue the auth tokens that initialize the frontend SDKs, query completed sessions, and manage recordings, livestreams, and webhooks. Authentication is HTTP Basic with the base64-encoded string organizationId:apiKey. Dyte was acquired by Cloudflare in 2025 and is transitioning to Cloudflare RealtimeKit; the Dyte v2 API is in maintenance mode.
+  termsOfService: https://dyte.io/terms
+  contact:
+    name: Dyte Support
+    url: https://docs.dyte.io/
+  version: '2.0'
+servers:
+- url: https://api.dyte.io/v2
+  description: Dyte v2 production API
+security:
+- basicAuth: []
+tags:
+- name: Livestreams
+  description: Manage livestreams for a meeting.
+paths:
+  /meetings/{meetingId}/livestreams:
+    parameters:
+    - $ref: '#/components/parameters/MeetingId'
+    get:
+      operationId: listLivestreams
+      tags:
+      - Livestreams
+      summary: Fetch all livestreams for a meeting
+      responses:
+        '200':
+          description: A list of livestreams.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LivestreamListResponse'
+    post:
+      operationId: startLivestream
+      tags:
+      - Livestreams
+      summary: Create and start a livestream
+      description: Starts livestreaming the meeting and returns the livestream id, stream key, ingest server, and playback URL.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartLivestreamRequest'
+      responses:
+        '201':
+          description: Livestream started.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LivestreamResponse'
+  /meetings/{meetingId}/active-livestream:
+    parameters:
+    - $ref: '#/components/parameters/MeetingId'
+    get:
+      operationId: getActiveLivestream
+      tags:
+      - Livestreams
+      summary: Fetch the active livestream for a meeting
+      responses:
+        '200':
+          description: Active livestream status and details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LivestreamResponse'
+  /meetings/{meetingId}/active-livestream/stop:
+    parameters:
+    - $ref: '#/components/parameters/MeetingId'
+    post:
+      operationId: stopLivestream
+      tags:
+      - Livestreams
+      summary: Stop the active livestream
+      responses:
+        '200':
+          description: Livestream stopped.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+components:
+  schemas:
+    Livestream:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        status:
+          type: string
+          enum:
+          - LIVE
+          - OFFLINE
+          - STARTING
+          - STOPPING
+        rtmp_url:
+          type: string
+        stream_key:
+          type: string
+        playback_url:
+          type: string
+          format: uri
+    LivestreamResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Livestream'
+    StartLivestreamRequest:
+      type: object
+      properties:
+        name:
+          type: string
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    LivestreamListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Livestream'
+  parameters:
+    MeetingId:
+      name: meetingId
+      in: path
+      required: true
+      description: Unique meeting identifier.
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth using the base64-encoded string organizationId:apiKey (organizationId as the username, apiKey as the password).

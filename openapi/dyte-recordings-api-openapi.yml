@@ -1,0 +1,264 @@
+openapi: 3.0.1
+info:
+  title: Dyte v2 REST Livestreams Recordings API
+  description: Server-side v2 REST API for the Dyte live video and voice platform. Use it to create and manage meetings, add participants and issue the auth tokens that initialize the frontend SDKs, query completed sessions, and manage recordings, livestreams, and webhooks. Authentication is HTTP Basic with the base64-encoded string organizationId:apiKey. Dyte was acquired by Cloudflare in 2025 and is transitioning to Cloudflare RealtimeKit; the Dyte v2 API is in maintenance mode.
+  termsOfService: https://dyte.io/terms
+  contact:
+    name: Dyte Support
+    url: https://docs.dyte.io/
+  version: '2.0'
+servers:
+- url: https://api.dyte.io/v2
+  description: Dyte v2 production API
+security:
+- basicAuth: []
+tags:
+- name: Recordings
+  description: Start, stop, and fetch meeting recordings.
+paths:
+  /recordings:
+    get:
+      operationId: listRecordings
+      tags:
+      - Recordings
+      summary: Fetch all recordings
+      parameters:
+      - $ref: '#/components/parameters/PageNo'
+      - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A paginated list of recordings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordingListResponse'
+    post:
+      operationId: startRecording
+      tags:
+      - Recordings
+      summary: Start a recording
+      description: Starts recording a meeting, optionally writing to a custom storage configuration such as an AWS S3 bucket.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartRecordingRequest'
+      responses:
+        '201':
+          description: Recording started.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordingResponse'
+  /recordings/{recordingId}:
+    parameters:
+    - $ref: '#/components/parameters/RecordingId'
+    get:
+      operationId: getRecording
+      tags:
+      - Recordings
+      summary: Fetch a recording
+      responses:
+        '200':
+          description: Recording details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordingResponse'
+    put:
+      operationId: updateRecording
+      tags:
+      - Recordings
+      summary: Stop or update a recording
+      description: Stops an in-progress recording when action is set to stop.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRecordingRequest'
+      responses:
+        '200':
+          description: Recording updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordingResponse'
+  /recordings/active-recordings/{meetingId}:
+    parameters:
+    - $ref: '#/components/parameters/MeetingId'
+    get:
+      operationId: getActiveRecording
+      tags:
+      - Recordings
+      summary: Fetch the active recording for a meeting
+      responses:
+        '200':
+          description: Active recording details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordingResponse'
+components:
+  schemas:
+    StartRecordingRequest:
+      type: object
+      required:
+      - meeting_id
+      properties:
+        meeting_id:
+          type: string
+          format: uuid
+        file_name_prefix:
+          type: string
+        audio_config:
+          type: object
+          properties:
+            codec:
+              type: string
+              enum:
+              - AAC
+              - MP3
+        video_config:
+          type: object
+          properties:
+            codec:
+              type: string
+              enum:
+              - H264
+              - VP8
+            width:
+              type: integer
+            height:
+              type: integer
+        storage_config:
+          $ref: '#/components/schemas/StorageConfig'
+    UpdateRecordingRequest:
+      type: object
+      required:
+      - action
+      properties:
+        action:
+          type: string
+          enum:
+          - stop
+          - pause
+          - resume
+    Paging:
+      type: object
+      properties:
+        total_count:
+          type: integer
+        start_offset:
+          type: integer
+        end_offset:
+          type: integer
+    RecordingListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recording'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    RecordingResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Recording'
+    StorageConfig:
+      type: object
+      description: Optional custom storage (e.g. AWS S3) for recording output.
+      properties:
+        type:
+          type: string
+          enum:
+          - aws
+          - gcs
+          - azure
+          - digitalocean
+        access_key:
+          type: string
+        secret:
+          type: string
+        bucket:
+          type: string
+        region:
+          type: string
+        path:
+          type: string
+    Recording:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        meeting_id:
+          type: string
+          format: uuid
+        session_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+          - INVOKED
+          - RECORDING
+          - UPLOADING
+          - UPLOADED
+          - ERRORED
+        output_file_name:
+          type: string
+        download_url:
+          type: string
+          format: uri
+        started_time:
+          type: string
+          format: date-time
+        stopped_time:
+          type: string
+          format: date-time
+  parameters:
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of items per page.
+      schema:
+        type: integer
+        default: 20
+    RecordingId:
+      name: recordingId
+      in: path
+      required: true
+      description: Unique recording identifier.
+      schema:
+        type: string
+        format: uuid
+    MeetingId:
+      name: meetingId
+      in: path
+      required: true
+      description: Unique meeting identifier.
+      schema:
+        type: string
+        format: uuid
+    PageNo:
+      name: page_no
+      in: query
+      required: false
+      description: Page number for paginated results.
+      schema:
+        type: integer
+        default: 1
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic auth using the base64-encoded string organizationId:apiKey (organizationId as the username, apiKey as the password).
