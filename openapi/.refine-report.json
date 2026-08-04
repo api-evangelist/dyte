@@ -1,0 +1,24 @@
+{
+  "provider": "dyte",
+  "sources": [
+    "dyte-livestreams-api-openapi.yml",
+    "dyte-meetings-api-openapi.yml",
+    "dyte-participants-api-openapi.yml",
+    "dyte-recordings-api-openapi.yml",
+    "dyte-sessions-api-openapi.yml",
+    "dyte-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "dyte-livestreams-api-openapi.yml",
+    "dyte-meetings-api-openapi.yml",
+    "dyte-participants-api-openapi.yml",
+    "dyte-recordings-api-openapi.yml",
+    "dyte-sessions-api-openapi.yml",
+    "dyte-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

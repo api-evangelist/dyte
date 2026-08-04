@@ -1,0 +1,1011 @@
+openapi: 3.0.1
+info:
+  title: Dyte v2 REST API
+  description: >-
+    Server-side v2 REST API for the Dyte live video and voice platform. Use it to
+    create and manage meetings, add participants and issue the auth tokens that
+    initialize the frontend SDKs, query completed sessions, and manage recordings,
+    livestreams, and webhooks. Authentication is HTTP Basic with the base64-encoded
+    string organizationId:apiKey. Dyte was acquired by Cloudflare in 2025 and is
+    transitioning to Cloudflare RealtimeKit; the Dyte v2 API is in maintenance mode.
+  termsOfService: https://dyte.io/terms
+  contact:
+    name: Dyte Support
+    url: https://docs.dyte.io/
+  version: '2.0'
+servers:
+  - url: https://api.dyte.io/v2
+    description: Dyte v2 production API
+security:
+  - basicAuth: []
+tags:
+  - name: Meetings
+    description: Create and manage meeting rooms.
+  - name: Participants
+    description: Add participants and issue/refresh their SDK auth tokens.
+  - name: Sessions
+    description: Query completed and active sessions.
+  - name: Recordings
+    description: Start, stop, and fetch meeting recordings.
+  - name: Livestreams
+    description: Manage livestreams for a meeting.
+  - name: Webhooks
+    description: Manage webhook event subscriptions.
+paths:
+  /meetings:
+    get:
+      operationId: listMeetings
+      tags:
+        - Meetings
+      summary: Fetch all meetings
+      description: Returns a paginated list of meetings for the organization.
+      parameters:
+        - $ref: '#/components/parameters/PageNo'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A paginated list of meetings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeetingListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createMeeting
+      tags:
+        - Meetings
+      summary: Create a meeting
+      description: Creates a new meeting room and returns its id.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMeetingRequest'
+      responses:
+        '201':
+          description: Meeting created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeetingResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /meetings/{meetingId}:
+    parameters:
+      - $ref: '#/components/parameters/MeetingId'
+    get:
+      operationId: getMeeting
+      tags:
+        - Meetings
+      summary: Fetch a meeting
+      responses:
+        '200':
+          description: Meeting details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeetingResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateMeeting
+      tags:
+        - Meetings
+      summary: Update a meeting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMeetingRequest'
+      responses:
+        '200':
+          description: Meeting updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeetingResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /meetings/{meetingId}/participants:
+    parameters:
+      - $ref: '#/components/parameters/MeetingId'
+    get:
+      operationId: listParticipants
+      tags:
+        - Participants
+      summary: Fetch all participants in a meeting
+      responses:
+        '200':
+          description: A list of participants.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantListResponse'
+    post:
+      operationId: addParticipant
+      tags:
+        - Participants
+      summary: Add a participant
+      description: >-
+        Adds a participant to the meeting and returns an auth token used to
+        initialize the frontend SDKs.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddParticipantRequest'
+      responses:
+        '201':
+          description: Participant added.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /meetings/{meetingId}/participants/{participantId}:
+    parameters:
+      - $ref: '#/components/parameters/MeetingId'
+      - $ref: '#/components/parameters/ParticipantId'
+    get:
+      operationId: getParticipant
+      tags:
+        - Participants
+      summary: Fetch a participant
+      responses:
+        '200':
+          description: Participant details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateParticipant
+      tags:
+        - Participants
+      summary: Edit a participant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateParticipantRequest'
+      responses:
+        '200':
+          description: Participant updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantResponse'
+    delete:
+      operationId: deleteParticipant
+      tags:
+        - Participants
+      summary: Delete a participant
+      responses:
+        '200':
+          description: Participant deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /meetings/{meetingId}/participants/{participantId}/token:
+    parameters:
+      - $ref: '#/components/parameters/MeetingId'
+      - $ref: '#/components/parameters/ParticipantId'
+    post:
+      operationId: regenerateParticipantToken
+      tags:
+        - Participants
+      summary: Regenerate a participant auth token
+      description: Issues a fresh auth token for an existing participant.
+      responses:
+        '200':
+          description: New token issued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantTokenResponse'
+  /sessions:
+    get:
+      operationId: listSessions
+      tags:
+        - Sessions
+      summary: Fetch all sessions
+      description: >-
+        Returns a paginated list of completed sessions (meetings that have ended)
+        for the organization.
+      parameters:
+        - $ref: '#/components/parameters/PageNo'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A paginated list of sessions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionListResponse'
+  /sessions/{sessionId}:
+    parameters:
+      - $ref: '#/components/parameters/SessionId'
+    get:
+      operationId: getSession
+      tags:
+        - Sessions
+      summary: Fetch a session
+      responses:
+        '200':
+          description: Session details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /sessions/{sessionId}/participants:
+    parameters:
+      - $ref: '#/components/parameters/SessionId'
+    get:
+      operationId: listSessionParticipants
+      tags:
+        - Sessions
+      summary: Fetch participants of a session
+      responses:
+        '200':
+          description: A list of session participants.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParticipantListResponse'
+  /active-sessions/{meetingId}:
+    parameters:
+      - $ref: '#/components/parameters/MeetingId'
+    get:
+      operationId: getActiveSession
+      tags:
+        - Sessions
+      summary: Fetch the active session for a meeting
+      responses:
+        '200':
+          description: Active session details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SessionResponse'
+  /recordings:
+    get:
+      operationId: listRecordings
+      tags:
+        - Recordings
+      summary: Fetch all recordings
+      parameters:
+        - $ref: '#/components/parameters/PageNo'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A paginated list of recordings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordingListResponse'
+    post:
+      operationId: startRecording
+      tags:
+        - Recordings
+      summary: Start a recording
+      description: >-
+        Starts recording a meeting, optionally writing to a custom storage
+        configuration such as an AWS S3 bucket.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartRecordingRequest'
+      responses:
+        '201':
+          description: Recording started.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordingResponse'
+  /recordings/{recordingId}:
+    parameters:
+      - $ref: '#/components/parameters/RecordingId'
+    get:
+      operationId: getRecording
+      tags:
+        - Recordings
+      summary: Fetch a recording
+      responses:
+        '200':
+          description: Recording details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordingResponse'
+    put:
+      operationId: updateRecording
+      tags:
+        - Recordings
+      summary: Stop or update a recording
+      description: Stops an in-progress recording when action is set to stop.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRecordingRequest'
+      responses:
+        '200':
+          description: Recording updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordingResponse'
+  /recordings/active-recordings/{meetingId}:
+    parameters:
+      - $ref: '#/components/parameters/MeetingId'
+    get:
+      operationId: getActiveRecording
+      tags:
+        - Recordings
+      summary: Fetch the active recording for a meeting
+      responses:
+        '200':
+          description: Active recording details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordingResponse'
+  /meetings/{meetingId}/livestreams:
+    parameters:
+      - $ref: '#/components/parameters/MeetingId'
+    get:
+      operationId: listLivestreams
+      tags:
+        - Livestreams
+      summary: Fetch all livestreams for a meeting
+      responses:
+        '200':
+          description: A list of livestreams.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LivestreamListResponse'
+    post:
+      operationId: startLivestream
+      tags:
+        - Livestreams
+      summary: Create and start a livestream
+      description: >-
+        Starts livestreaming the meeting and returns the livestream id, stream
+        key, ingest server, and playback URL.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartLivestreamRequest'
+      responses:
+        '201':
+          description: Livestream started.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LivestreamResponse'
+  /meetings/{meetingId}/active-livestream:
+    parameters:
+      - $ref: '#/components/parameters/MeetingId'
+    get:
+      operationId: getActiveLivestream
+      tags:
+        - Livestreams
+      summary: Fetch the active livestream for a meeting
+      responses:
+        '200':
+          description: Active livestream status and details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LivestreamResponse'
+  /meetings/{meetingId}/active-livestream/stop:
+    parameters:
+      - $ref: '#/components/parameters/MeetingId'
+    post:
+      operationId: stopLivestream
+      tags:
+        - Livestreams
+      summary: Stop the active livestream
+      responses:
+        '200':
+          description: Livestream stopped.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+  /webhooks:
+    get:
+      operationId: listWebhooks
+      tags:
+        - Webhooks
+      summary: Fetch all webhooks
+      responses:
+        '200':
+          description: A list of webhooks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookListResponse'
+    post:
+      operationId: createWebhook
+      tags:
+        - Webhooks
+      summary: Add a webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookRequest'
+      responses:
+        '201':
+          description: Webhook created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+  /webhooks/{webhookId}:
+    parameters:
+      - $ref: '#/components/parameters/WebhookId'
+    patch:
+      operationId: updateWebhook
+      tags:
+        - Webhooks
+      summary: Edit a webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookRequest'
+      responses:
+        '200':
+          description: Webhook updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+    delete:
+      operationId: deleteWebhook
+      tags:
+        - Webhooks
+      summary: Delete a webhook
+      responses:
+        '200':
+          description: Webhook deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: >-
+        HTTP Basic auth using the base64-encoded string organizationId:apiKey
+        (organizationId as the username, apiKey as the password).
+  parameters:
+    MeetingId:
+      name: meetingId
+      in: path
+      required: true
+      description: Unique meeting identifier.
+      schema:
+        type: string
+        format: uuid
+    ParticipantId:
+      name: participantId
+      in: path
+      required: true
+      description: Unique participant identifier.
+      schema:
+        type: string
+        format: uuid
+    SessionId:
+      name: sessionId
+      in: path
+      required: true
+      description: Unique session identifier.
+      schema:
+        type: string
+        format: uuid
+    RecordingId:
+      name: recordingId
+      in: path
+      required: true
+      description: Unique recording identifier.
+      schema:
+        type: string
+        format: uuid
+    WebhookId:
+      name: webhookId
+      in: path
+      required: true
+      description: Unique webhook identifier.
+      schema:
+        type: string
+        format: uuid
+    PageNo:
+      name: page_no
+      in: query
+      required: false
+      description: Page number for paginated results.
+      schema:
+        type: integer
+        default: 1
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of items per page.
+      schema:
+        type: integer
+        default: 20
+  responses:
+    BadRequest:
+      description: The request was malformed or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Missing or invalid Basic auth credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    CreateMeetingRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Weekly Standup
+        preferred_region:
+          type: string
+          description: Preferred media server region for the meeting.
+          example: ap-south-1
+        record_on_start:
+          type: boolean
+          default: false
+        live_stream_on_start:
+          type: boolean
+          default: false
+    UpdateMeetingRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - INACTIVE
+    MeetingResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Meeting'
+    MeetingListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Meeting'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Meeting:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        preferred_region:
+          type: string
+        record_on_start:
+          type: boolean
+        live_stream_on_start:
+          type: boolean
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    AddParticipantRequest:
+      type: object
+      required:
+        - preset_name
+      properties:
+        name:
+          type: string
+          example: Jane Doe
+        picture:
+          type: string
+          format: uri
+        preset_name:
+          type: string
+          description: Name of the preset that defines this participant's permissions.
+          example: group_call_host
+        custom_participant_id:
+          type: string
+          description: Your application's identifier for the participant.
+    UpdateParticipantRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        picture:
+          type: string
+          format: uri
+        preset_name:
+          type: string
+    ParticipantResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Participant'
+    ParticipantListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Participant'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Participant:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        picture:
+          type: string
+          format: uri
+        preset_name:
+          type: string
+        custom_participant_id:
+          type: string
+        token:
+          type: string
+          description: Auth token used to initialize the frontend SDKs.
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ParticipantTokenResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: object
+          properties:
+            token:
+              type: string
+    SessionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Session'
+    SessionListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Session'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Session:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        associated_id:
+          type: string
+          description: The meeting id this session belongs to.
+        type:
+          type: string
+        status:
+          type: string
+        live_participants:
+          type: integer
+        max_concurrent_participants:
+          type: integer
+        minutes_consumed:
+          type: number
+        started_at:
+          type: string
+          format: date-time
+        ended_at:
+          type: string
+          format: date-time
+    StartRecordingRequest:
+      type: object
+      required:
+        - meeting_id
+      properties:
+        meeting_id:
+          type: string
+          format: uuid
+        file_name_prefix:
+          type: string
+        audio_config:
+          type: object
+          properties:
+            codec:
+              type: string
+              enum:
+                - AAC
+                - MP3
+        video_config:
+          type: object
+          properties:
+            codec:
+              type: string
+              enum:
+                - H264
+                - VP8
+            width:
+              type: integer
+            height:
+              type: integer
+        storage_config:
+          $ref: '#/components/schemas/StorageConfig'
+    UpdateRecordingRequest:
+      type: object
+      required:
+        - action
+      properties:
+        action:
+          type: string
+          enum:
+            - stop
+            - pause
+            - resume
+    StorageConfig:
+      type: object
+      description: Optional custom storage (e.g. AWS S3) for recording output.
+      properties:
+        type:
+          type: string
+          enum:
+            - aws
+            - gcs
+            - azure
+            - digitalocean
+        access_key:
+          type: string
+        secret:
+          type: string
+        bucket:
+          type: string
+        region:
+          type: string
+        path:
+          type: string
+    RecordingResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Recording'
+    RecordingListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recording'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Recording:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        meeting_id:
+          type: string
+          format: uuid
+        session_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+            - INVOKED
+            - RECORDING
+            - UPLOADING
+            - UPLOADED
+            - ERRORED
+        output_file_name:
+          type: string
+        download_url:
+          type: string
+          format: uri
+        started_time:
+          type: string
+          format: date-time
+        stopped_time:
+          type: string
+          format: date-time
+    StartLivestreamRequest:
+      type: object
+      properties:
+        name:
+          type: string
+    LivestreamResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Livestream'
+    LivestreamListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Livestream'
+    Livestream:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        status:
+          type: string
+          enum:
+            - LIVE
+            - OFFLINE
+            - STARTING
+            - STOPPING
+        rtmp_url:
+          type: string
+        stream_key:
+          type: string
+        playback_url:
+          type: string
+          format: uri
+    CreateWebhookRequest:
+      type: object
+      required:
+        - name
+        - url
+        - events
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+            enum:
+              - meeting.started
+              - meeting.ended
+              - meeting.participantJoined
+              - meeting.participantLeft
+              - recording.statusUpdate
+              - livestreaming.statusUpdate
+    WebhookResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Webhook'
+    WebhookListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Webhook'
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
+    Paging:
+      type: object
+      properties:
+        total_count:
+          type: integer
+        start_offset:
+          type: integer
+        end_offset:
+          type: integer
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
