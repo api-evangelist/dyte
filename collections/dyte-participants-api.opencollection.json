@@ -1,0 +1,171 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dyte v2 REST Livestreams Participants API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Participants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch all participants in a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/participants",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique meeting identifier."
+              }
+            ]
+          },
+          "docs": "Fetch all participants in a meeting"
+        },
+        {
+          "info": {
+            "name": "Add a participant",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/participants",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique meeting identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a participant to the meeting and returns an auth token used to initialize the frontend SDKs."
+        },
+        {
+          "info": {
+            "name": "Fetch a participant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/participants/:participantId",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique meeting identifier."
+              },
+              {
+                "name": "participantId",
+                "value": "",
+                "type": "path",
+                "description": "Unique participant identifier."
+              }
+            ]
+          },
+          "docs": "Fetch a participant"
+        },
+        {
+          "info": {
+            "name": "Edit a participant",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/participants/:participantId",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique meeting identifier."
+              },
+              {
+                "name": "participantId",
+                "value": "",
+                "type": "path",
+                "description": "Unique participant identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Edit a participant"
+        },
+        {
+          "info": {
+            "name": "Delete a participant",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/participants/:participantId",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique meeting identifier."
+              },
+              {
+                "name": "participantId",
+                "value": "",
+                "type": "path",
+                "description": "Unique participant identifier."
+              }
+            ]
+          },
+          "docs": "Delete a participant"
+        },
+        {
+          "info": {
+            "name": "Regenerate a participant auth token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/participants/:participantId/token",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique meeting identifier."
+              },
+              {
+                "name": "participantId",
+                "value": "",
+                "type": "path",
+                "description": "Unique participant identifier."
+              }
+            ]
+          },
+          "docs": "Issues a fresh auth token for an existing participant."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

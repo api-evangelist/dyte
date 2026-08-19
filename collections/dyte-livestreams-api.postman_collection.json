@@ -1,0 +1,451 @@
+{
+  "item": [
+    {
+      "id": "7af12104-ebf5-4b50-927f-7b206143c304",
+      "name": "Livestreams",
+      "description": {
+        "content": "Manage livestreams for a meeting.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1af422e7-e7b5-4912-9df0-96e644d62bdc",
+          "name": "Fetch all livestreams for a meeting",
+          "request": {
+            "name": "Fetch all livestreams for a meeting",
+            "description": {},
+            "url": {
+              "path": [
+                "meetings",
+                ":meetingId",
+                "livestreams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "meetingId",
+                  "description": "(Required) Unique meeting identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c6978e4d-c44b-49bd-9ae8-4ebff5e596d0",
+              "name": "A list of livestreams.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meetings",
+                    ":meetingId",
+                    "livestreams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingId",
+                      "description": "(Required) Unique meeting identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": [\n    {\n      \"id\": \"19e0f559-af01-6045-4b17-c8ebf2657f6b\",\n      \"name\": \"string\",\n      \"status\": \"LIVE\",\n      \"rtmp_url\": \"string\",\n      \"stream_key\": \"string\",\n      \"playback_url\": \"https://uLErRzQUtIubQCB.ueTb75WlEKT-j8b\"\n    },\n    {\n      \"id\": \"eaaf2ea3-b5ab-9652-a1c0-169f6fdd0280\",\n      \"name\": \"string\",\n      \"status\": \"STOPPING\",\n      \"rtmp_url\": \"string\",\n      \"stream_key\": \"string\",\n      \"playback_url\": \"http://ycDybhYbcGKtvdSpeJK.qgKUoJUVeIOk,eL2tMSwwvZVdDq3-+BhUMoeivBNWPZCSzWMkmOhgXzg\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3cede423-001e-4ba1-afed-1c58391e4f28",
+          "name": "Create and start a livestream",
+          "request": {
+            "name": "Create and start a livestream",
+            "description": {
+              "content": "Starts livestreaming the meeting and returns the livestream id, stream key, ingest server, and playback URL.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "meetings",
+                ":meetingId",
+                "livestreams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "meetingId",
+                  "description": "(Required) Unique meeting identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "421daf7a-7ef3-46a1-a2a3-eec65b0c257d",
+              "name": "Livestream started.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meetings",
+                    ":meetingId",
+                    "livestreams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingId",
+                      "description": "(Required) Unique meeting identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": {\n    \"id\": \"d4d87d28-c9ff-98ef-ccfe-f3544bd00845\",\n    \"name\": \"string\",\n    \"status\": \"STOPPING\",\n    \"rtmp_url\": \"string\",\n    \"stream_key\": \"string\",\n    \"playback_url\": \"https://eLsZplVTtHJBtNgGgsbQOcHIvJC.hwMYc,lAlTWfywazwTjdAoLcblXciMwrim+sFDO74Ra,a+Qby\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c31eb9e-22fe-4bf4-9651-7a7e70d89d41",
+          "name": "Fetch the active livestream for a meeting",
+          "request": {
+            "name": "Fetch the active livestream for a meeting",
+            "description": {},
+            "url": {
+              "path": [
+                "meetings",
+                ":meetingId",
+                "active-livestream"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "meetingId",
+                  "description": "(Required) Unique meeting identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "60761aa3-b915-461f-b9c0-df8016d8dc42",
+              "name": "Active livestream status and details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meetings",
+                    ":meetingId",
+                    "active-livestream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingId",
+                      "description": "(Required) Unique meeting identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": {\n    \"id\": \"d4d87d28-c9ff-98ef-ccfe-f3544bd00845\",\n    \"name\": \"string\",\n    \"status\": \"STOPPING\",\n    \"rtmp_url\": \"string\",\n    \"stream_key\": \"string\",\n    \"playback_url\": \"https://eLsZplVTtHJBtNgGgsbQOcHIvJC.hwMYc,lAlTWfywazwTjdAoLcblXciMwrim+sFDO74Ra,a+Qby\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a872ab2f-3e49-4b69-85f9-5bef059a0f9d",
+          "name": "Stop the active livestream",
+          "request": {
+            "name": "Stop the active livestream",
+            "description": {},
+            "url": {
+              "path": [
+                "meetings",
+                ":meetingId",
+                "active-livestream",
+                "stop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "meetingId",
+                  "description": "(Required) Unique meeting identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "544d0e87-da1f-4cc2-84f1-f83b7abaff1a",
+              "name": "Livestream stopped.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "meetings",
+                    ":meetingId",
+                    "active-livestream",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingId",
+                      "description": "(Required) Unique meeting identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dyte.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2a288041-c559-4e97-a2b1-082a42da3ad5",
+    "name": "Dyte v2 REST Livestreams API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Server-side v2 REST API for the Dyte live video and voice platform. Use it to create and manage meetings, add participants and issue the auth tokens that initialize the frontend SDKs, query completed sessions, and manage recordings, livestreams, and webhooks. Authentication is HTTP Basic with the base64-encoded string organizationId:apiKey. Dyte was acquired by Cloudflare in 2025 and is transitioning to Cloudflare RealtimeKit; the Dyte v2 API is in maintenance mode.\n\nContact Support:\n Name: Dyte Support",
+      "type": "text/plain"
+    }
+  }
+}

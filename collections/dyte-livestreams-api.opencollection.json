@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dyte v2 REST Livestreams API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Livestreams",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch all livestreams for a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/livestreams",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique meeting identifier."
+              }
+            ]
+          },
+          "docs": "Fetch all livestreams for a meeting"
+        },
+        {
+          "info": {
+            "name": "Create and start a livestream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/livestreams",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique meeting identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts livestreaming the meeting and returns the livestream id, stream key, ingest server, and playback URL."
+        },
+        {
+          "info": {
+            "name": "Fetch the active livestream for a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/active-livestream",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique meeting identifier."
+              }
+            ]
+          },
+          "docs": "Fetch the active livestream for a meeting"
+        },
+        {
+          "info": {
+            "name": "Stop the active livestream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId/active-livestream/stop",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique meeting identifier."
+              }
+            ]
+          },
+          "docs": "Stop the active livestream"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

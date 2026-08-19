@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dyte v2 REST Livestreams Meetings API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Meetings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch all meetings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/meetings",
+            "params": [
+              {
+                "name": "page_no",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of meetings for the organization."
+        },
+        {
+          "info": {
+            "name": "Create a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dyte.io/v2/meetings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new meeting room and returns its id."
+        },
+        {
+          "info": {
+            "name": "Fetch a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique meeting identifier."
+              }
+            ]
+          },
+          "docs": "Fetch a meeting"
+        },
+        {
+          "info": {
+            "name": "Update a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.dyte.io/v2/meetings/:meetingId",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique meeting identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a meeting"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

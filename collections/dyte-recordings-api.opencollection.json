@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dyte v2 REST Livestreams Recordings API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Recordings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch all recordings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/recordings",
+            "params": [
+              {
+                "name": "page_no",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page."
+              }
+            ]
+          },
+          "docs": "Fetch all recordings"
+        },
+        {
+          "info": {
+            "name": "Start a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.dyte.io/v2/recordings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Starts recording a meeting, optionally writing to a custom storage configuration such as an AWS S3 bucket."
+        },
+        {
+          "info": {
+            "name": "Fetch a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/recordings/:recordingId",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique recording identifier."
+              }
+            ]
+          },
+          "docs": "Fetch a recording"
+        },
+        {
+          "info": {
+            "name": "Stop or update a recording",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.dyte.io/v2/recordings/:recordingId",
+            "params": [
+              {
+                "name": "recordingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique recording identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stops an in-progress recording when action is set to stop."
+        },
+        {
+          "info": {
+            "name": "Fetch the active recording for a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/recordings/active-recordings/:meetingId",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique meeting identifier."
+              }
+            ]
+          },
+          "docs": "Fetch the active recording for a meeting"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

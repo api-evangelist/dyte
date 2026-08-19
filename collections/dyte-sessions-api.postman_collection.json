@@ -1,0 +1,478 @@
+{
+  "item": [
+    {
+      "id": "f74aa41a-9d5a-44ac-a371-a4e7dc4e127f",
+      "name": "Sessions",
+      "description": {
+        "content": "Query completed and active sessions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "63e620e7-3560-4609-bb06-15a7deb1e65a",
+          "name": "Fetch all sessions",
+          "request": {
+            "name": "Fetch all sessions",
+            "description": {
+              "content": "Returns a paginated list of completed sessions (meetings that have ended) for the organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sessions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_no",
+                  "value": "1",
+                  "description": "Page number for paginated results."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "20",
+                  "description": "Number of items per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "790153a1-4b65-4827-9243-b17ee62319cf",
+              "name": "A paginated list of sessions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_no",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"9260b5ee-4aa2-9fbc-79fc-24cd33195677\",\n      \"associated_id\": \"string\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"live_participants\": 3938,\n      \"max_concurrent_participants\": 7737,\n      \"minutes_consumed\": 7551.736640716281,\n      \"started_at\": \"1962-11-27T22:29:07.062Z\",\n      \"ended_at\": \"2021-11-15T22:25:57.618Z\"\n    },\n    {\n      \"id\": \"ebf67868-bc44-20b5-680e-154e51fafc39\",\n      \"associated_id\": \"string\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"live_participants\": 3097,\n      \"max_concurrent_participants\": 7628,\n      \"minutes_consumed\": 7195.658594820326,\n      \"started_at\": \"1987-05-11T08:58:58.971Z\",\n      \"ended_at\": \"2020-01-27T20:50:42.465Z\"\n    }\n  ],\n  \"paging\": {\n    \"total_count\": 1890,\n    \"start_offset\": 7414,\n    \"end_offset\": 5260\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc2ed60f-777c-4119-bc81-657b6f93f044",
+          "name": "Fetch a session",
+          "request": {
+            "name": "Fetch a session",
+            "description": {},
+            "url": {
+              "path": [
+                "sessions",
+                ":sessionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "sessionId",
+                  "description": "(Required) Unique session identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd212894-5ed1-4c21-9864-beb971319ca7",
+              "name": "Session details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "sessionId",
+                      "description": "(Required) Unique session identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": {\n    \"id\": \"283d8e3a-4e32-e841-f72d-780dd17ff6c8\",\n    \"associated_id\": \"string\",\n    \"type\": \"string\",\n    \"status\": \"string\",\n    \"live_participants\": 3443,\n    \"max_concurrent_participants\": 9688,\n    \"minutes_consumed\": 7974.229006442433,\n    \"started_at\": \"1956-03-18T04:51:16.866Z\",\n    \"ended_at\": \"1960-03-28T15:05:49.797Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e08d0dc-9dc2-49c4-a414-4f0d0e62f5fd",
+              "name": "The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "sessionId",
+                      "description": "(Required) Unique session identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"error\": {\n    \"code\": 2538,\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2da53968-38e4-4012-966b-6a80a9f87635",
+          "name": "Fetch participants of a session",
+          "request": {
+            "name": "Fetch participants of a session",
+            "description": {},
+            "url": {
+              "path": [
+                "sessions",
+                ":sessionId",
+                "participants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "sessionId",
+                  "description": "(Required) Unique session identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e7e7b48f-251f-4be6-811a-b191981b9efa",
+              "name": "A list of session participants.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sessions",
+                    ":sessionId",
+                    "participants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "sessionId",
+                      "description": "(Required) Unique session identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": [\n    {\n      \"id\": \"146e83a9-5d2f-9afd-9d4a-058de95fe398\",\n      \"name\": \"string\",\n      \"picture\": \"http://ShegpdDGXksuGudqWnCnt.paG9FK\",\n      \"preset_name\": \"string\",\n      \"custom_participant_id\": \"string\",\n      \"token\": \"string\",\n      \"created_at\": \"1980-10-17T02:55:20.753Z\",\n      \"updated_at\": \"1980-09-05T03:34:51.223Z\"\n    },\n    {\n      \"id\": \"353bf6e8-fbbc-2e97-baa9-027de7ffb1c2\",\n      \"name\": \"string\",\n      \"picture\": \"http://oirIn.ubveAIgSdwTF5GBL-4aF68M-URXEospYqy4FZiw7vMSxQ\",\n      \"preset_name\": \"string\",\n      \"custom_participant_id\": \"string\",\n      \"token\": \"string\",\n      \"created_at\": \"1974-11-21T15:49:37.039Z\",\n      \"updated_at\": \"1965-10-19T04:42:02.559Z\"\n    }\n  ],\n  \"paging\": {\n    \"total_count\": 7358,\n    \"start_offset\": 1087,\n    \"end_offset\": 9285\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7918d853-7caf-46c4-9700-09f6462aae6d",
+          "name": "Fetch the active session for a meeting",
+          "request": {
+            "name": "Fetch the active session for a meeting",
+            "description": {},
+            "url": {
+              "path": [
+                "active-sessions",
+                ":meetingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "meetingId",
+                  "description": "(Required) Unique meeting identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e0e28160-792c-4c02-ad37-181e12031af4",
+              "name": "Active session details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "active-sessions",
+                    ":meetingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingId",
+                      "description": "(Required) Unique meeting identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": {\n    \"id\": \"283d8e3a-4e32-e841-f72d-780dd17ff6c8\",\n    \"associated_id\": \"string\",\n    \"type\": \"string\",\n    \"status\": \"string\",\n    \"live_participants\": 3443,\n    \"max_concurrent_participants\": 9688,\n    \"minutes_consumed\": 7974.229006442433,\n    \"started_at\": \"1956-03-18T04:51:16.866Z\",\n    \"ended_at\": \"1960-03-28T15:05:49.797Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dyte.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dc597a2e-a529-4c8d-9067-c47f0ad2797a",
+    "name": "Dyte v2 REST Livestreams Sessions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Server-side v2 REST API for the Dyte live video and voice platform. Use it to create and manage meetings, add participants and issue the auth tokens that initialize the frontend SDKs, query completed sessions, and manage recordings, livestreams, and webhooks. Authentication is HTTP Basic with the base64-encoded string organizationId:apiKey. Dyte was acquired by Cloudflare in 2025 and is transitioning to Cloudflare RealtimeKit; the Dyte v2 API is in maintenance mode.\n\nContact Support:\n Name: Dyte Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dyte v2 REST Livestreams Sessions API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch all sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/sessions",
+            "params": [
+              {
+                "name": "page_no",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of completed sessions (meetings that have ended) for the organization."
+        },
+        {
+          "info": {
+            "name": "Fetch a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/sessions/:sessionId",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique session identifier."
+              }
+            ]
+          },
+          "docs": "Fetch a session"
+        },
+        {
+          "info": {
+            "name": "Fetch participants of a session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/sessions/:sessionId/participants",
+            "params": [
+              {
+                "name": "sessionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique session identifier."
+              }
+            ]
+          },
+          "docs": "Fetch participants of a session"
+        },
+        {
+          "info": {
+            "name": "Fetch the active session for a meeting",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.dyte.io/v2/active-sessions/:meetingId",
+            "params": [
+              {
+                "name": "meetingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique meeting identifier."
+              }
+            ]
+          },
+          "docs": "Fetch the active session for a meeting"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

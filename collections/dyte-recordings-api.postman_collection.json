@@ -1,0 +1,546 @@
+{
+  "item": [
+    {
+      "id": "cad2fb71-7173-4784-b186-46f8e9f36c29",
+      "name": "Recordings",
+      "description": {
+        "content": "Start, stop, and fetch meeting recordings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ef45cc2d-9538-438e-9f5e-9a2408ff420c",
+          "name": "Fetch all recordings",
+          "request": {
+            "name": "Fetch all recordings",
+            "description": {},
+            "url": {
+              "path": [
+                "recordings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_no",
+                  "value": "1",
+                  "description": "Page number for paginated results."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "20",
+                  "description": "Number of items per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9aa0c1a3-e66a-44c4-970c-e71e229b24ff",
+              "name": "A paginated list of recordings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_no",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"c7a9828b-2014-ab73-4100-28a96b07bd09\",\n      \"meeting_id\": \"cbe8a271-fa1f-7cd0-d135-8fbaa813649f\",\n      \"session_id\": \"92b583f2-4d96-fc0f-1bf1-00809e1e708d\",\n      \"status\": \"UPLOADED\",\n      \"output_file_name\": \"string\",\n      \"download_url\": \"http://bGLmegGvBmhuAmLapBSN.vymlLLnqWp4fgdQ+SQ01bgk8\",\n      \"started_time\": \"1952-09-11T13:10:26.246Z\",\n      \"stopped_time\": \"1972-08-25T22:06:06.830Z\"\n    },\n    {\n      \"id\": \"e592535e-325d-c210-8dc0-ebe520ac48b3\",\n      \"meeting_id\": \"ae72321e-0901-008a-7e3b-8344f3cf254a\",\n      \"session_id\": \"35184afe-e586-eedb-7abf-c352f115ba2a\",\n      \"status\": \"ERRORED\",\n      \"output_file_name\": \"string\",\n      \"download_url\": \"http://zbLMyiEhZSUYfxXdXlGNHoDxSFgz.sbehJNiL5UedJbSdUByaT-1bS0q-2c\",\n      \"started_time\": \"1984-08-22T02:39:14.137Z\",\n      \"stopped_time\": \"1960-03-20T00:44:12.565Z\"\n    }\n  ],\n  \"paging\": {\n    \"total_count\": 4591,\n    \"start_offset\": 7750,\n    \"end_offset\": 8387\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "880ca0ce-eb7e-41db-839e-e0ddc26021a4",
+          "name": "Start a recording",
+          "request": {
+            "name": "Start a recording",
+            "description": {
+              "content": "Starts recording a meeting, optionally writing to a custom storage configuration such as an AWS S3 bucket.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recordings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"meeting_id\": \"<uuid>\",\n  \"file_name_prefix\": \"<string>\",\n  \"audio_config\": {\n    \"codec\": \"<string>\"\n  },\n  \"video_config\": {\n    \"codec\": \"<string>\",\n    \"width\": \"<integer>\",\n    \"height\": \"<integer>\"\n  },\n  \"storage_config\": {\n    \"type\": \"<string>\",\n    \"access_key\": \"<string>\",\n    \"secret\": \"<string>\",\n    \"bucket\": \"<string>\",\n    \"region\": \"<string>\",\n    \"path\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4bb55f62-3ec7-46d6-8d9b-3ae921d93ea9",
+              "name": "Recording started.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"meeting_id\": \"<uuid>\",\n  \"file_name_prefix\": \"<string>\",\n  \"audio_config\": {\n    \"codec\": \"<string>\"\n  },\n  \"video_config\": {\n    \"codec\": \"<string>\",\n    \"width\": \"<integer>\",\n    \"height\": \"<integer>\"\n  },\n  \"storage_config\": {\n    \"type\": \"<string>\",\n    \"access_key\": \"<string>\",\n    \"secret\": \"<string>\",\n    \"bucket\": \"<string>\",\n    \"region\": \"<string>\",\n    \"path\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"a897b338-fdb1-c89e-1efb-6d7c557b9e80\",\n    \"meeting_id\": \"ba7b3e44-b638-518a-2d6d-09a04c53e0ba\",\n    \"session_id\": \"7cb418f4-15f6-bf26-9b72-04218acb49f1\",\n    \"status\": \"UPLOADED\",\n    \"output_file_name\": \"string\",\n    \"download_url\": \"http://OFVEjUYKoLDnvnc.vcRshBzRSjhrfx2ajsEwGwR0MC-uzAeFgQo\",\n    \"started_time\": \"1952-10-24T17:54:58.131Z\",\n    \"stopped_time\": \"2005-06-15T07:37:18.465Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "268b4737-465c-492d-9b5e-16f963c1c8e3",
+          "name": "Fetch a recording",
+          "request": {
+            "name": "Fetch a recording",
+            "description": {},
+            "url": {
+              "path": [
+                "recordings",
+                ":recordingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "recordingId",
+                  "description": "(Required) Unique recording identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ac5b70e6-3333-4ac2-b44a-534153cfc07a",
+              "name": "Recording details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique recording identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"a897b338-fdb1-c89e-1efb-6d7c557b9e80\",\n    \"meeting_id\": \"ba7b3e44-b638-518a-2d6d-09a04c53e0ba\",\n    \"session_id\": \"7cb418f4-15f6-bf26-9b72-04218acb49f1\",\n    \"status\": \"UPLOADED\",\n    \"output_file_name\": \"string\",\n    \"download_url\": \"http://OFVEjUYKoLDnvnc.vcRshBzRSjhrfx2ajsEwGwR0MC-uzAeFgQo\",\n    \"started_time\": \"1952-10-24T17:54:58.131Z\",\n    \"stopped_time\": \"2005-06-15T07:37:18.465Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c7ffb8c-2889-48e4-ba76-8ec2b0c0254d",
+          "name": "Stop or update a recording",
+          "request": {
+            "name": "Stop or update a recording",
+            "description": {
+              "content": "Stops an in-progress recording when action is set to stop.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recordings",
+                ":recordingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "recordingId",
+                  "description": "(Required) Unique recording identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"action\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "84613668-ebc7-48ea-822e-7db0a86280ba",
+              "name": "Recording updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    ":recordingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "recordingId",
+                      "description": "(Required) Unique recording identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"action\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"a897b338-fdb1-c89e-1efb-6d7c557b9e80\",\n    \"meeting_id\": \"ba7b3e44-b638-518a-2d6d-09a04c53e0ba\",\n    \"session_id\": \"7cb418f4-15f6-bf26-9b72-04218acb49f1\",\n    \"status\": \"UPLOADED\",\n    \"output_file_name\": \"string\",\n    \"download_url\": \"http://OFVEjUYKoLDnvnc.vcRshBzRSjhrfx2ajsEwGwR0MC-uzAeFgQo\",\n    \"started_time\": \"1952-10-24T17:54:58.131Z\",\n    \"stopped_time\": \"2005-06-15T07:37:18.465Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5c01968-194b-48d5-9f12-85db42dd42a0",
+          "name": "Fetch the active recording for a meeting",
+          "request": {
+            "name": "Fetch the active recording for a meeting",
+            "description": {},
+            "url": {
+              "path": [
+                "recordings",
+                "active-recordings",
+                ":meetingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "meetingId",
+                  "description": "(Required) Unique meeting identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3f52053c-28df-411e-9069-a55b3e26fe3c",
+              "name": "Active recording details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recordings",
+                    "active-recordings",
+                    ":meetingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "meetingId",
+                      "description": "(Required) Unique meeting identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"a897b338-fdb1-c89e-1efb-6d7c557b9e80\",\n    \"meeting_id\": \"ba7b3e44-b638-518a-2d6d-09a04c53e0ba\",\n    \"session_id\": \"7cb418f4-15f6-bf26-9b72-04218acb49f1\",\n    \"status\": \"UPLOADED\",\n    \"output_file_name\": \"string\",\n    \"download_url\": \"http://OFVEjUYKoLDnvnc.vcRshBzRSjhrfx2ajsEwGwR0MC-uzAeFgQo\",\n    \"started_time\": \"1952-10-24T17:54:58.131Z\",\n    \"stopped_time\": \"2005-06-15T07:37:18.465Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.dyte.io/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "db21596e-cc35-443d-b2fb-739fe94d262e",
+    "name": "Dyte v2 REST Livestreams Recordings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Server-side v2 REST API for the Dyte live video and voice platform. Use it to create and manage meetings, add participants and issue the auth tokens that initialize the frontend SDKs, query completed sessions, and manage recordings, livestreams, and webhooks. Authentication is HTTP Basic with the base64-encoded string organizationId:apiKey. Dyte was acquired by Cloudflare in 2025 and is transitioning to Cloudflare RealtimeKit; the Dyte v2 API is in maintenance mode.\n\nContact Support:\n Name: Dyte Support",
+      "type": "text/plain"
+    }
+  }
+}
