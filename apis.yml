@@ -24,6 +24,13 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/dyte.png
 tags:
 - Video
 - Voice
+- Real-Time
+- WebRTC
+- SDK
+- Communications
+tags_raw:
+- Video
+- Voice
 - Real Time
 - WebRTC
 - SDK
@@ -38,6 +45,8 @@ apis:
   humanURL: https://docs.dyte.io/api
   baseURL: https://api.dyte.io/v2
   tags:
+  - Live Streams
+  tags_raw:
   - Livestreams
   properties:
   - type: OpenAPI
@@ -148,6 +157,8 @@ apis:
   humanURL: https://docs.dyte.io/api
   baseURL: https://api.dyte.io/v2
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
