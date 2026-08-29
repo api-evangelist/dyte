@@ -7,6 +7,18 @@ description: Dyte is a live video and voice developer platform offering client S
   issuing their auth tokens, querying completed sessions, and managing recordings,
   livestreams, and webhooks. Dyte was acquired by Cloudflare in 2025 and is transitioning
   into Cloudflare RealtimeKit; the Dyte SDKs and APIs are in maintenance mode.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
