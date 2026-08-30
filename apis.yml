@@ -57,7 +57,7 @@ apis:
   humanURL: https://docs.dyte.io/api
   baseURL: https://api.dyte.io/v2
   tags:
-  - Live Streams
+  - Livestreams
   tags_raw:
   - Livestreams
   properties:
@@ -188,6 +188,11 @@ apis:
   - type: Documentation
     url: https://docs.dyte.io/guides/rest-apis/livestream-dyte-meeting
 common:
+- type: ParentCompany
+  url: https://apis.io/providers/cloudflare/
+  name: Cloudflare
+  x-relationship: acquired
+  x-evidence: "Dyte was acquired by Cloudflare in 2025 and is transitioning into Cloudflare RealtimeKit; the Dyte SDKs and APIs are in maintenance mode."
 - type: AgenticAccess
   url: agentic-access/dyte-agentic-access.yml
 - type: DomainSecurity
