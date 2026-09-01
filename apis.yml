@@ -57,7 +57,7 @@ apis:
   humanURL: https://docs.dyte.io/api
   baseURL: https://api.dyte.io/v2
   tags:
-  - Livestreams
+  - Live Streams
   tags_raw:
   - Livestreams
   properties:
