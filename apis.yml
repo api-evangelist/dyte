@@ -53,30 +53,6 @@ created: '2026-06-20'
 modified: '2026-06-20'
 specificationVersion: '0.23'
 apis:
-- aid: dyte:dyte-livestreams-api
-  name: Dyte Livestreams API
-  description: Manage livestreams for a meeting.
-  humanURL: https://docs.dyte.io/api
-  baseURL: https://api.dyte.io/v2
-  tags:
-  - Live Streams
-  tags_raw:
-  - Livestreams
-  properties:
-  - type: OpenAPI
-    url: openapi/dyte-livestreams-api-openapi.yml
-  - type: Documentation
-    url: https://docs.dyte.io/guides/rest-apis/quickstart
-  - type: APIReference
-    url: https://docs.dyte.io/api
-  - type: PostmanCollection
-    url: collections/dyte.postman_collection.json
-  - type: Documentation
-    url: https://docs.dyte.io/guides/v2-migration-guide
-  - type: Documentation
-    url: https://docs.dyte.io/guides/capabilities/recording/start-recording
-  - type: Documentation
-    url: https://docs.dyte.io/guides/rest-apis/livestream-dyte-meeting
 - aid: dyte:dyte-meetings-api
   name: Dyte Meetings API
   description: Create and manage meeting rooms.
@@ -177,6 +153,28 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/dyte-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.dyte.io/guides/rest-apis/quickstart
+  - type: APIReference
+    url: https://docs.dyte.io/api
+  - type: PostmanCollection
+    url: collections/dyte.postman_collection.json
+  - type: Documentation
+    url: https://docs.dyte.io/guides/v2-migration-guide
+  - type: Documentation
+    url: https://docs.dyte.io/guides/capabilities/recording/start-recording
+  - type: Documentation
+    url: https://docs.dyte.io/guides/rest-apis/livestream-dyte-meeting
+- aid: dyte:dyte-live-streams-api
+  name: Dyte Live Streams API
+  description: Manage livestreams for a meeting.
+  humanURL: https://docs.dyte.io/api
+  baseURL: https://api.dyte.io/v2
+  tags:
+  - Live Streams
+  properties:
+  - type: OpenAPI
+    url: openapi/dyte-live-streams-api-openapi.yml
   - type: Documentation
     url: https://docs.dyte.io/guides/rest-apis/quickstart
   - type: APIReference
