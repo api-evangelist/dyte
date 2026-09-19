@@ -103,6 +103,8 @@ apis:
   humanURL: https://docs.dyte.io/api
   baseURL: https://api.dyte.io/v2
   tags:
+  - Recording
+  tags_raw:
   - Recordings
   properties:
   - type: OpenAPI
