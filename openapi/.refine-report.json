@@ -1,12 +1,7 @@
 {
   "provider": "dyte",
   "sources": [
-    "dyte-livestreams-api-openapi.yml",
-    "dyte-meetings-api-openapi.yml",
-    "dyte-participants-api-openapi.yml",
-    "dyte-recordings-api-openapi.yml",
-    "dyte-sessions-api-openapi.yml",
-    "dyte-webhooks-api-openapi.yml"
+    "_original/dyte-openapi.yml"
   ],
   "outputs": [
     "dyte-livestreams-api-openapi.yml",
@@ -16,9 +11,23 @@
     "dyte-sessions-api-openapi.yml",
     "dyte-webhooks-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "dyte-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "superseded outputs removed: dyte-live-streams-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 6 total)"
+  ],
+  "skipped": [
+    "dyte-live-streams-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dyte-meetings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dyte-participants-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dyte-recordings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dyte-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dyte-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

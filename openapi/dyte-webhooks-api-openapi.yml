@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Dyte v2 REST Livestreams Webhooks API
+  title: Dyte v2 REST Webhooks API
   description: Server-side v2 REST API for the Dyte live video and voice platform. Use it to create and manage meetings, add participants and issue the auth tokens that initialize the frontend SDKs, query completed sessions, and manage recordings, livestreams, and webhooks. Authentication is HTTP Basic with the base64-encoded string organizationId:apiKey. Dyte was acquired by Cloudflare in 2025 and is transitioning to Cloudflare RealtimeKit; the Dyte v2 API is in maintenance mode.
   termsOfService: https://dyte.io/terms
   contact:
@@ -82,21 +82,6 @@ paths:
                 $ref: '#/components/schemas/SuccessResponse'
 components:
   schemas:
-    Webhook:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-        events:
-          type: array
-          items:
-            type: string
     WebhookResponse:
       type: object
       properties:
@@ -113,6 +98,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Webhook'
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
     CreateWebhookRequest:
       type: object
       required:
@@ -136,13 +128,21 @@ components:
             - meeting.participantLeft
             - recording.statusUpdate
             - livestreaming.statusUpdate
-    SuccessResponse:
+    Webhook:
       type: object
       properties:
-        success:
-          type: boolean
-        message:
+        id:
           type: string
+          format: uuid
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          items:
+            type: string
   parameters:
     WebhookId:
       name: webhookId

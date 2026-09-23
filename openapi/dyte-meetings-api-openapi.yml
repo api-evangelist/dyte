@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Dyte v2 REST Livestreams Meetings API
+  title: Dyte v2 REST Meetings API
   description: Server-side v2 REST API for the Dyte live video and voice platform. Use it to create and manage meetings, add participants and issue the auth tokens that initialize the frontend SDKs, query completed sessions, and manage recordings, livestreams, and webhooks. Authentication is HTTP Basic with the base64-encoded string organizationId:apiKey. Dyte was acquired by Cloudflare in 2025 and is transitioning to Cloudflare RealtimeKit; the Dyte v2 API is in maintenance mode.
   termsOfService: https://dyte.io/terms
   contact:
@@ -96,78 +96,29 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: The requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Missing or invalid Basic auth credentials.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or missing required fields.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    PerPage:
-      name: per_page
-      in: query
-      required: false
-      description: Number of items per page.
-      schema:
-        type: integer
-        default: 20
-    MeetingId:
-      name: meetingId
-      in: path
-      required: true
-      description: Unique meeting identifier.
-      schema:
-        type: string
-        format: uuid
-    PageNo:
-      name: page_no
-      in: query
-      required: false
-      description: Page number for paginated results.
-      schema:
-        type: integer
-        default: 1
   schemas:
-    Paging:
+    Meeting:
       type: object
       properties:
-        total_count:
-          type: integer
-        start_offset:
-          type: integer
-        end_offset:
-          type: integer
-    MeetingResponse:
-      type: object
-      properties:
-        success:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        preferred_region:
+          type: string
+        record_on_start:
           type: boolean
-        data:
-          $ref: '#/components/schemas/Meeting'
-    MeetingListResponse:
-      type: object
-      properties:
-        success:
+        live_stream_on_start:
           type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Meeting'
-        paging:
-          $ref: '#/components/schemas/Paging'
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     ErrorResponse:
       type: object
       properties:
@@ -191,28 +142,22 @@ components:
           enum:
           - ACTIVE
           - INACTIVE
-    Meeting:
+    MeetingResponse:
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
-        title:
-          type: string
-        preferred_region:
-          type: string
-        record_on_start:
+        success:
           type: boolean
-        live_stream_on_start:
-          type: boolean
-        status:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
+        data:
+          $ref: '#/components/schemas/Meeting'
+    Paging:
+      type: object
+      properties:
+        total_count:
+          type: integer
+        start_offset:
+          type: integer
+        end_offset:
+          type: integer
     CreateMeetingRequest:
       type: object
       properties:
@@ -229,6 +174,61 @@ components:
         live_stream_on_start:
           type: boolean
           default: false
+    MeetingListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Meeting'
+        paging:
+          $ref: '#/components/schemas/Paging'
+  responses:
+    BadRequest:
+      description: The request was malformed or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Missing or invalid Basic auth credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of items per page.
+      schema:
+        type: integer
+        default: 20
+    PageNo:
+      name: page_no
+      in: query
+      required: false
+      description: Page number for paginated results.
+      schema:
+        type: integer
+        default: 1
+    MeetingId:
+      name: meetingId
+      in: path
+      required: true
+      description: Unique meeting identifier.
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     basicAuth:
       type: http

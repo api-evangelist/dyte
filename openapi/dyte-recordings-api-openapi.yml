@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Dyte v2 REST Livestreams Recordings API
+  title: Dyte v2 REST Recordings API
   description: Server-side v2 REST API for the Dyte live video and voice platform. Use it to create and manage meetings, add participants and issue the auth tokens that initialize the frontend SDKs, query completed sessions, and manage recordings, livestreams, and webhooks. Authentication is HTTP Basic with the base64-encoded string organizationId:apiKey. Dyte was acquired by Cloudflare in 2025 and is transitioning to Cloudflare RealtimeKit; the Dyte v2 API is in maintenance mode.
   termsOfService: https://dyte.io/terms
   contact:
@@ -101,7 +101,130 @@ paths:
               schema:
                 $ref: '#/components/schemas/RecordingResponse'
 components:
+  parameters:
+    MeetingId:
+      name: meetingId
+      in: path
+      required: true
+      description: Unique meeting identifier.
+      schema:
+        type: string
+        format: uuid
+    RecordingId:
+      name: recordingId
+      in: path
+      required: true
+      description: Unique recording identifier.
+      schema:
+        type: string
+        format: uuid
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of items per page.
+      schema:
+        type: integer
+        default: 20
+    PageNo:
+      name: page_no
+      in: query
+      required: false
+      description: Page number for paginated results.
+      schema:
+        type: integer
+        default: 1
   schemas:
+    RecordingListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recording'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    Recording:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        meeting_id:
+          type: string
+          format: uuid
+        session_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+          - INVOKED
+          - RECORDING
+          - UPLOADING
+          - UPLOADED
+          - ERRORED
+        output_file_name:
+          type: string
+        download_url:
+          type: string
+          format: uri
+        started_time:
+          type: string
+          format: date-time
+        stopped_time:
+          type: string
+          format: date-time
+    RecordingResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Recording'
+    Paging:
+      type: object
+      properties:
+        total_count:
+          type: integer
+        start_offset:
+          type: integer
+        end_offset:
+          type: integer
+    StorageConfig:
+      type: object
+      description: Optional custom storage (e.g. AWS S3) for recording output.
+      properties:
+        type:
+          type: string
+          enum:
+          - aws
+          - gcs
+          - azure
+          - digitalocean
+        access_key:
+          type: string
+        secret:
+          type: string
+        bucket:
+          type: string
+        region:
+          type: string
+        path:
+          type: string
+    UpdateRecordingRequest:
+      type: object
+      required:
+      - action
+      properties:
+        action:
+          type: string
+          enum:
+          - stop
+          - pause
+          - resume
     StartRecordingRequest:
       type: object
       required:
@@ -134,129 +257,6 @@ components:
               type: integer
         storage_config:
           $ref: '#/components/schemas/StorageConfig'
-    UpdateRecordingRequest:
-      type: object
-      required:
-      - action
-      properties:
-        action:
-          type: string
-          enum:
-          - stop
-          - pause
-          - resume
-    Paging:
-      type: object
-      properties:
-        total_count:
-          type: integer
-        start_offset:
-          type: integer
-        end_offset:
-          type: integer
-    RecordingListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Recording'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    RecordingResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/Recording'
-    StorageConfig:
-      type: object
-      description: Optional custom storage (e.g. AWS S3) for recording output.
-      properties:
-        type:
-          type: string
-          enum:
-          - aws
-          - gcs
-          - azure
-          - digitalocean
-        access_key:
-          type: string
-        secret:
-          type: string
-        bucket:
-          type: string
-        region:
-          type: string
-        path:
-          type: string
-    Recording:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        meeting_id:
-          type: string
-          format: uuid
-        session_id:
-          type: string
-          format: uuid
-        status:
-          type: string
-          enum:
-          - INVOKED
-          - RECORDING
-          - UPLOADING
-          - UPLOADED
-          - ERRORED
-        output_file_name:
-          type: string
-        download_url:
-          type: string
-          format: uri
-        started_time:
-          type: string
-          format: date-time
-        stopped_time:
-          type: string
-          format: date-time
-  parameters:
-    PerPage:
-      name: per_page
-      in: query
-      required: false
-      description: Number of items per page.
-      schema:
-        type: integer
-        default: 20
-    RecordingId:
-      name: recordingId
-      in: path
-      required: true
-      description: Unique recording identifier.
-      schema:
-        type: string
-        format: uuid
-    MeetingId:
-      name: meetingId
-      in: path
-      required: true
-      description: Unique meeting identifier.
-      schema:
-        type: string
-        format: uuid
-    PageNo:
-      name: page_no
-      in: query
-      required: false
-      description: Page number for paginated results.
-      schema:
-        type: integer
-        default: 1
   securitySchemes:
     basicAuth:
       type: http
