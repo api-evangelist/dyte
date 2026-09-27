@@ -82,6 +82,27 @@ paths:
                 $ref: '#/components/schemas/SuccessResponse'
 components:
   schemas:
+    StartLivestreamRequest:
+      type: object
+      properties:
+        name:
+          type: string
+    LivestreamListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Livestream'
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
     Livestream:
       type: object
       properties:
@@ -104,27 +125,6 @@ components:
         playback_url:
           type: string
           format: uri
-    SuccessResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-    StartLivestreamRequest:
-      type: object
-      properties:
-        name:
-          type: string
-    LivestreamListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Livestream'
     LivestreamResponse:
       type: object
       properties:

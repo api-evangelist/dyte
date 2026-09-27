@@ -119,54 +119,6 @@ paths:
                 $ref: '#/components/schemas/ParticipantTokenResponse'
 components:
   schemas:
-    ParticipantResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/Participant'
-    ParticipantListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Participant'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    ErrorResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: false
-        error:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-    SuccessResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-    UpdateParticipantRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        picture:
-          type: string
-          format: uri
-        preset_name:
-          type: string
     AddParticipantRequest:
       type: object
       required:
@@ -209,6 +161,41 @@ components:
         updated_at:
           type: string
           format: date-time
+    UpdateParticipantRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        picture:
+          type: string
+          format: uri
+        preset_name:
+          type: string
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    ParticipantListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Participant'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    ParticipantResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Participant'
     Paging:
       type: object
       properties:
@@ -228,19 +215,19 @@ components:
           properties:
             token:
               type: string
-  responses:
-    BadRequest:
-      description: The request was malformed or missing required fields.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: The requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
   parameters:
     ParticipantId:
       name: participantId
@@ -258,6 +245,19 @@ components:
       schema:
         type: string
         format: uuid
+  responses:
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http
