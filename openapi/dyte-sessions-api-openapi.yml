@@ -81,7 +81,89 @@ paths:
               schema:
                 $ref: '#/components/schemas/SessionResponse'
 components:
+  responses:
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+    Participant:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        picture:
+          type: string
+          format: uri
+        preset_name:
+          type: string
+        custom_participant_id:
+          type: string
+        token:
+          type: string
+          description: Auth token used to initialize the frontend SDKs.
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Paging:
+      type: object
+      properties:
+        total_count:
+          type: integer
+        start_offset:
+          type: integer
+        end_offset:
+          type: integer
+    SessionListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Session'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    ParticipantListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Participant'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    SessionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Session'
     Session:
       type: object
       properties:
@@ -107,95 +189,12 @@ components:
         ended_at:
           type: string
           format: date-time
-    Participant:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        picture:
-          type: string
-          format: uri
-        preset_name:
-          type: string
-        custom_participant_id:
-          type: string
-        token:
-          type: string
-          description: Auth token used to initialize the frontend SDKs.
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-    SessionListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Session'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    SessionResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/Session'
-    ParticipantListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Participant'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    Paging:
-      type: object
-      properties:
-        total_count:
-          type: integer
-        start_offset:
-          type: integer
-        end_offset:
-          type: integer
-    ErrorResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: false
-        error:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
   parameters:
-    PageNo:
-      name: page_no
-      in: query
-      required: false
-      description: Page number for paginated results.
-      schema:
-        type: integer
-        default: 1
-    SessionId:
-      name: sessionId
+    MeetingId:
+      name: meetingId
       in: path
       required: true
-      description: Unique session identifier.
+      description: Unique meeting identifier.
       schema:
         type: string
         format: uuid
@@ -207,21 +206,22 @@ components:
       schema:
         type: integer
         default: 20
-    MeetingId:
-      name: meetingId
+    SessionId:
+      name: sessionId
       in: path
       required: true
-      description: Unique meeting identifier.
+      description: Unique session identifier.
       schema:
         type: string
         format: uuid
-  responses:
-    NotFound:
-      description: The requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    PageNo:
+      name: page_no
+      in: query
+      required: false
+      description: Page number for paginated results.
+      schema:
+        type: integer
+        default: 1
   securitySchemes:
     basicAuth:
       type: http

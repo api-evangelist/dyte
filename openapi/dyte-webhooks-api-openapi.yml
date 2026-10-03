@@ -82,20 +82,6 @@ paths:
                 $ref: '#/components/schemas/SuccessResponse'
 components:
   schemas:
-    WebhookResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/Webhook'
-    SuccessResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
     Webhook:
       type: object
       properties:
@@ -111,15 +97,6 @@ components:
           type: array
           items:
             type: string
-    WebhookListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Webhook'
     CreateWebhookRequest:
       type: object
       required:
@@ -143,6 +120,29 @@ components:
             - meeting.participantLeft
             - recording.statusUpdate
             - livestreaming.statusUpdate
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    WebhookListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Webhook'
+    WebhookResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Webhook'
   parameters:
     WebhookId:
       name: webhookId

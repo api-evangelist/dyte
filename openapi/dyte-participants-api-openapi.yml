@@ -119,24 +119,29 @@ paths:
                 $ref: '#/components/schemas/ParticipantTokenResponse'
 components:
   schemas:
-    AddParticipantRequest:
+    UpdateParticipantRequest:
       type: object
-      required:
-      - preset_name
       properties:
         name:
           type: string
-          example: Jane Doe
         picture:
           type: string
           format: uri
         preset_name:
           type: string
-          description: Name of the preset that defines this participant's permissions.
-          example: group_call_host
-        custom_participant_id:
-          type: string
-          description: Your application's identifier for the participant.
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
     Participant:
       type: object
       properties:
@@ -161,23 +166,15 @@ components:
         updated_at:
           type: string
           format: date-time
-    UpdateParticipantRequest:
+    Paging:
       type: object
       properties:
-        name:
-          type: string
-        picture:
-          type: string
-          format: uri
-        preset_name:
-          type: string
-    SuccessResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
+        total_count:
+          type: integer
+        start_offset:
+          type: integer
+        end_offset:
+          type: integer
     ParticipantListResponse:
       type: object
       properties:
@@ -189,22 +186,6 @@ components:
             $ref: '#/components/schemas/Participant'
         paging:
           $ref: '#/components/schemas/Paging'
-    ParticipantResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/Participant'
-    Paging:
-      type: object
-      properties:
-        total_count:
-          type: integer
-        start_offset:
-          type: integer
-        end_offset:
-          type: integer
     ParticipantTokenResponse:
       type: object
       properties:
@@ -215,19 +196,38 @@ components:
           properties:
             token:
               type: string
-    ErrorResponse:
+    AddParticipantRequest:
+      type: object
+      required:
+      - preset_name
+      properties:
+        name:
+          type: string
+          example: Jane Doe
+        picture:
+          type: string
+          format: uri
+        preset_name:
+          type: string
+          description: Name of the preset that defines this participant's permissions.
+          example: group_call_host
+        custom_participant_id:
+          type: string
+          description: Your application's identifier for the participant.
+    SuccessResponse:
       type: object
       properties:
         success:
           type: boolean
-          example: false
-        error:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
+        message:
+          type: string
+    ParticipantResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Participant'
   parameters:
     ParticipantId:
       name: participantId
