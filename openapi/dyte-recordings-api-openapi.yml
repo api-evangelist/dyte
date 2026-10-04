@@ -102,15 +102,17 @@ paths:
                 $ref: '#/components/schemas/RecordingResponse'
 components:
   schemas:
-    Paging:
+    UpdateRecordingRequest:
       type: object
+      required:
+      - action
       properties:
-        total_count:
-          type: integer
-        start_offset:
-          type: integer
-        end_offset:
-          type: integer
+        action:
+          type: string
+          enum:
+          - stop
+          - pause
+          - resume
     StartRecordingRequest:
       type: object
       required:
@@ -143,6 +145,24 @@ components:
               type: integer
         storage_config:
           $ref: '#/components/schemas/StorageConfig'
+    RecordingListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recording'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    RecordingResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Recording'
     StorageConfig:
       type: object
       description: Optional custom storage (e.g. AWS S3) for recording output.
@@ -164,28 +184,6 @@ components:
           type: string
         path:
           type: string
-    RecordingListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Recording'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    UpdateRecordingRequest:
-      type: object
-      required:
-      - action
-      properties:
-        action:
-          type: string
-          enum:
-          - stop
-          - pause
-          - resume
     Recording:
       type: object
       properties:
@@ -217,22 +215,16 @@ components:
         stopped_time:
           type: string
           format: date-time
-    RecordingResponse:
+    Paging:
       type: object
       properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/Recording'
+        total_count:
+          type: integer
+        start_offset:
+          type: integer
+        end_offset:
+          type: integer
   parameters:
-    MeetingId:
-      name: meetingId
-      in: path
-      required: true
-      description: Unique meeting identifier.
-      schema:
-        type: string
-        format: uuid
     PerPage:
       name: per_page
       in: query
@@ -241,11 +233,11 @@ components:
       schema:
         type: integer
         default: 20
-    RecordingId:
-      name: recordingId
+    MeetingId:
+      name: meetingId
       in: path
       required: true
-      description: Unique recording identifier.
+      description: Unique meeting identifier.
       schema:
         type: string
         format: uuid
@@ -257,6 +249,14 @@ components:
       schema:
         type: integer
         default: 1
+    RecordingId:
+      name: recordingId
+      in: path
+      required: true
+      description: Unique recording identifier.
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     basicAuth:
       type: http

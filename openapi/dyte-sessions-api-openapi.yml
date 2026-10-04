@@ -81,13 +81,39 @@ paths:
               schema:
                 $ref: '#/components/schemas/SessionResponse'
 components:
-  responses:
-    NotFound:
-      description: The requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    PerPage:
+      name: per_page
+      in: query
+      required: false
+      description: Number of items per page.
+      schema:
+        type: integer
+        default: 20
+    SessionId:
+      name: sessionId
+      in: path
+      required: true
+      description: Unique session identifier.
+      schema:
+        type: string
+        format: uuid
+    MeetingId:
+      name: meetingId
+      in: path
+      required: true
+      description: Unique meeting identifier.
+      schema:
+        type: string
+        format: uuid
+    PageNo:
+      name: page_no
+      in: query
+      required: false
+      description: Page number for paginated results.
+      schema:
+        type: integer
+        default: 1
   schemas:
     ErrorResponse:
       type: object
@@ -102,6 +128,17 @@ components:
               type: integer
             message:
               type: string
+    ParticipantListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Participant'
+        paging:
+          $ref: '#/components/schemas/Paging'
     Participant:
       type: object
       properties:
@@ -126,44 +163,6 @@ components:
         updated_at:
           type: string
           format: date-time
-    Paging:
-      type: object
-      properties:
-        total_count:
-          type: integer
-        start_offset:
-          type: integer
-        end_offset:
-          type: integer
-    SessionListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Session'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    ParticipantListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Participant'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    SessionResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/Session'
     Session:
       type: object
       properties:
@@ -189,39 +188,40 @@ components:
         ended_at:
           type: string
           format: date-time
-  parameters:
-    MeetingId:
-      name: meetingId
-      in: path
-      required: true
-      description: Unique meeting identifier.
-      schema:
-        type: string
-        format: uuid
-    PerPage:
-      name: per_page
-      in: query
-      required: false
-      description: Number of items per page.
-      schema:
-        type: integer
-        default: 20
-    SessionId:
-      name: sessionId
-      in: path
-      required: true
-      description: Unique session identifier.
-      schema:
-        type: string
-        format: uuid
-    PageNo:
-      name: page_no
-      in: query
-      required: false
-      description: Page number for paginated results.
-      schema:
-        type: integer
-        default: 1
+    SessionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Session'
+    Paging:
+      type: object
+      properties:
+        total_count:
+          type: integer
+        start_offset:
+          type: integer
+        end_offset:
+          type: integer
+    SessionListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Session'
+        paging:
+          $ref: '#/components/schemas/Paging'
+  responses:
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http

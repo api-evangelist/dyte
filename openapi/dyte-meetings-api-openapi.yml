@@ -96,66 +96,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: The requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: The request was malformed or missing required fields.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Missing or invalid Basic auth credentials.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: false
-        error:
-          type: object
-          properties:
-            code:
-              type: integer
-            message:
-              type: string
-    MeetingResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/Meeting'
-    Paging:
-      type: object
-      properties:
-        total_count:
-          type: integer
-        start_offset:
-          type: integer
-        end_offset:
-          type: integer
-    MeetingListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Meeting'
-        paging:
-          $ref: '#/components/schemas/Paging'
     Meeting:
       type: object
       properties:
@@ -178,6 +119,26 @@ components:
         updated_at:
           type: string
           format: date-time
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: object
+          properties:
+            code:
+              type: integer
+            message:
+              type: string
+    MeetingResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Meeting'
     UpdateMeetingRequest:
       type: object
       properties:
@@ -188,6 +149,26 @@ components:
           enum:
           - ACTIVE
           - INACTIVE
+    Paging:
+      type: object
+      properties:
+        total_count:
+          type: integer
+        start_offset:
+          type: integer
+        end_offset:
+          type: integer
+    MeetingListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Meeting'
+        paging:
+          $ref: '#/components/schemas/Paging'
     CreateMeetingRequest:
       type: object
       properties:
@@ -205,14 +186,6 @@ components:
           type: boolean
           default: false
   parameters:
-    MeetingId:
-      name: meetingId
-      in: path
-      required: true
-      description: Unique meeting identifier.
-      schema:
-        type: string
-        format: uuid
     PerPage:
       name: per_page
       in: query
@@ -221,6 +194,14 @@ components:
       schema:
         type: integer
         default: 20
+    MeetingId:
+      name: meetingId
+      in: path
+      required: true
+      description: Unique meeting identifier.
+      schema:
+        type: string
+        format: uuid
     PageNo:
       name: page_no
       in: query
@@ -229,6 +210,25 @@ components:
       schema:
         type: integer
         default: 1
+  responses:
+    Unauthorized:
+      description: Missing or invalid Basic auth credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: The request was malformed or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     basicAuth:
       type: http

@@ -82,13 +82,13 @@ paths:
                 $ref: '#/components/schemas/SuccessResponse'
 components:
   schemas:
-    LivestreamResponse:
+    SuccessResponse:
       type: object
       properties:
         success:
           type: boolean
-        data:
-          $ref: '#/components/schemas/Livestream'
+        message:
+          type: string
     StartLivestreamRequest:
       type: object
       properties:
@@ -103,6 +103,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Livestream'
+    LivestreamResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Livestream'
     Livestream:
       type: object
       properties:
@@ -125,13 +132,6 @@ components:
         playback_url:
           type: string
           format: uri
-    SuccessResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
   parameters:
     MeetingId:
       name: meetingId
