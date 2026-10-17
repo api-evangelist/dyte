@@ -145,45 +145,6 @@ components:
               type: integer
         storage_config:
           $ref: '#/components/schemas/StorageConfig'
-    RecordingListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Recording'
-        paging:
-          $ref: '#/components/schemas/Paging'
-    RecordingResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/Recording'
-    StorageConfig:
-      type: object
-      description: Optional custom storage (e.g. AWS S3) for recording output.
-      properties:
-        type:
-          type: string
-          enum:
-          - aws
-          - gcs
-          - azure
-          - digitalocean
-        access_key:
-          type: string
-        secret:
-          type: string
-        bucket:
-          type: string
-        region:
-          type: string
-        path:
-          type: string
     Recording:
       type: object
       properties:
@@ -224,7 +185,54 @@ components:
           type: integer
         end_offset:
           type: integer
+    RecordingResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Recording'
+    StorageConfig:
+      type: object
+      description: Optional custom storage (e.g. AWS S3) for recording output.
+      properties:
+        type:
+          type: string
+          enum:
+          - aws
+          - gcs
+          - azure
+          - digitalocean
+        access_key:
+          type: string
+        secret:
+          type: string
+        bucket:
+          type: string
+        region:
+          type: string
+        path:
+          type: string
+    RecordingListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recording'
+        paging:
+          $ref: '#/components/schemas/Paging'
   parameters:
+    RecordingId:
+      name: recordingId
+      in: path
+      required: true
+      description: Unique recording identifier.
+      schema:
+        type: string
+        format: uuid
     PerPage:
       name: per_page
       in: query
@@ -249,14 +257,6 @@ components:
       schema:
         type: integer
         default: 1
-    RecordingId:
-      name: recordingId
-      in: path
-      required: true
-      description: Unique recording identifier.
-      schema:
-        type: string
-        format: uuid
   securitySchemes:
     basicAuth:
       type: http

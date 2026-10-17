@@ -82,34 +82,6 @@ paths:
                 $ref: '#/components/schemas/SuccessResponse'
 components:
   schemas:
-    SuccessResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-    StartLivestreamRequest:
-      type: object
-      properties:
-        name:
-          type: string
-    LivestreamListResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Livestream'
-    LivestreamResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/Livestream'
     Livestream:
       type: object
       properties:
@@ -132,6 +104,34 @@ components:
         playback_url:
           type: string
           format: uri
+    LivestreamListResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Livestream'
+    LivestreamResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/Livestream'
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    StartLivestreamRequest:
+      type: object
+      properties:
+        name:
+          type: string
   parameters:
     MeetingId:
       name: meetingId
