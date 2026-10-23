@@ -1,0 +1,24 @@
+generated: '2026-10-23'
+method: searched
+checked:
+- bubble/integrations/bubble-integration-edges.yml
+source:
+- bubble/integrations/bubble-integration-edges.yml
+edges:
+- partner_name: Bubble (own)
+  partner: bubble
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://bubble.io/plugin/dyte--live-video--audio-sdk-1650945434000x413421778289295360
+  mirror_of: bubble/integrations/bubble-integration-edges.yml
+  apps:
+  - 'Dyte : Live Video & Audio SDK'
+  listing_count: 1
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Background Services
