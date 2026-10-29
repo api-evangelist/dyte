@@ -1,4 +1,4 @@
-# Dyte (dyte)
+# Dyte
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,163 +66,125 @@
 
 Dyte is a live video and voice developer platform offering client SDKs plus a v2 REST API for programmatically creating meetings, adding participants and issuing their auth tokens, querying completed sessions, and managing recordings, livestreams, and webhooks. Dyte was acquired by Cloudflare in 2025 and is transitioning into Cloudflare RealtimeKit; the Dyte SDKs and APIs are in maintenance mode.
 
-> **Status note:** Dyte was acquired by Cloudflare (announced April 2025) and its products are being folded into **Cloudflare RealtimeKit**. The existing Dyte SDKs and v2 REST API remain documented and operational but are in maintenance mode and no longer receive feature updates. New builds are directed to Cloudflare RealtimeKit. This catalog documents the still-live Dyte v2 REST API as of the modified date.
+**Areas:** Video · Voice · Real-Time · WebRTC · SDK · Communications
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/dyte/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/dyte/refs/heads/main/apis.yml)
+## Dyte on APIs.io
 
-## Tags
+Everything profiled for Dyte is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/dyte/](https://apis.io/providers/dyte/)** — or go straight to one of the APIs or properties below.
 
-- Video
-- Voice
-- Real Time
-- WebRTC
-- SDK
-- Communications
+### APIs (6)
 
-## Timestamps
+- [Dyte Meetings API](https://apis.io/apis/dyte/dyte-meetings-api/) — Create and manage meeting rooms.
+- [Dyte Participants API](https://apis.io/apis/dyte/dyte-participants-api/) — Add participants and issue/refresh their SDK auth tokens.
+- [Dyte Recordings API](https://apis.io/apis/dyte/dyte-recordings-api/) — Start, stop, and fetch meeting recordings.
+- [Dyte Sessions API](https://apis.io/apis/dyte/dyte-sessions-api/) — Query completed and active sessions.
+- [Dyte Webhooks API](https://apis.io/apis/dyte/dyte-webhooks-api/) — Manage webhook event subscriptions.
+- [Dyte Live Streams API](https://apis.io/apis/dyte/dyte-live-streams-api/) — Manage livestreams for a meeting.
 
-- **Created:** 2026-06-20
-- **Modified:** 2026-06-20
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Dyte Meetings API
+#### Agentic access (1)
 
-Create, list, fetch, and update video/voice meeting rooms in an organization via the v2 REST API. A meeting ID is the anchor for adding participants, recordings, and livestreams.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://docs.dyte.io/api](https://docs.dyte.io/api)
-- **Base URL:** `https://api.dyte.io/v2`
+- [Dyte Agentic Access](https://apis.io/agentic-access/dyte/dyte-agentic-access/)
 
-#### Tags
+#### Collections (7)
 
-- Meetings
-- Rooms
-- Real Time
+Postman and Open Collection request collections.
 
-#### Properties
+- [Dyte v2 REST API](https://apis.io/collections/dyte/open-dyte/)
+- [Dyte v2 REST Livestreams API](https://apis.io/collections/dyte/open-dyte-livestreams-api/)
+- [Dyte v2 REST Livestreams Meetings API](https://apis.io/collections/dyte/open-dyte-meetings-api/)
+- [Dyte v2 REST Livestreams Participants API](https://apis.io/collections/dyte/open-dyte-participants-api/)
+- [Dyte v2 REST Livestreams Recordings API](https://apis.io/collections/dyte/open-dyte-recordings-api/)
+- [Dyte v2 REST Livestreams Sessions API](https://apis.io/collections/dyte/open-dyte-sessions-api/)
+- [Dyte v2 REST Livestreams Webhooks API](https://apis.io/collections/dyte/open-dyte-webhooks-api/)
 
-- [Documentation](https://docs.dyte.io/guides/rest-apis/quickstart)
-- [API Reference](https://docs.dyte.io/api)
-- [OpenAPI](openapi/dyte-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dyte.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dyte.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Security (2)
 
-### Dyte Participants API
+Authentication, trust centre, and vulnerability disclosure.
 
-Add participants to a meeting and receive the auth token required to initialize the frontend SDKs, plus list, fetch, edit, delete, and regenerate participant tokens against an assigned preset.
+- [Dyte Authentication](https://apis.io/security/dyte/dyte-authentication/)
+- [Dyte Domain Security](https://apis.io/security/dyte/dyte-domain-security/)
 
-- **Human URL:** [https://docs.dyte.io/api](https://docs.dyte.io/api)
-- **Base URL:** `https://api.dyte.io/v2`
+#### Plans and pricing (1)
 
-#### Tags
+Published plans, tiers and prices.
 
-- Participants
-- Auth Tokens
-- Presets
+- [Dyte Plans Pricing](https://apis.io/plans/dyte/dyte-plans-pricing/)
 
-#### Properties
+#### Rate limits (1)
 
-- [Documentation](https://docs.dyte.io/guides/rest-apis/quickstart)
-- [API Reference](https://docs.dyte.io/api)
-- [OpenAPI](openapi/dyte-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dyte.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dyte.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Published request limits.
 
-### Dyte Sessions API
+- [Dyte Rate Limits](https://apis.io/rate-limits/dyte/dyte-rate-limits/)
 
-Retrieve information about completed meetings (sessions) across an organization, including participant lists and details, plus active-session lookups for ongoing meetings. Responses are paginated.
+#### FinOps (1)
 
-- **Human URL:** [https://docs.dyte.io/api](https://docs.dyte.io/api)
-- **Base URL:** `https://api.dyte.io/v2`
+What the API costs to run, by operation.
 
-#### Tags
+- [Dyte Finops](https://apis.io/finops/dyte/dyte-finops/)
 
-- Sessions
-- Analytics
-- History
+## Where to find this API
 
-#### Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- [Documentation](https://docs.dyte.io/guides/v2-migration-guide)
-- [API Reference](https://docs.dyte.io/api)
-- [OpenAPI](openapi/dyte-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dyte.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dyte.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Dyte Recordings API
-
-Start, stop, list, and fetch meeting recordings with optional custom (e.g. AWS S3) storage configuration. Recording status updates are delivered asynchronously via webhooks.
-
-- **Human URL:** [https://docs.dyte.io/api](https://docs.dyte.io/api)
-- **Base URL:** `https://api.dyte.io/v2`
-
-#### Tags
-
-- Recordings
-- Storage
-- S3
-
-#### Properties
-
-- [Documentation](https://docs.dyte.io/guides/capabilities/recording/start-recording)
-- [API Reference](https://docs.dyte.io/api)
-- [OpenAPI](openapi/dyte-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dyte.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dyte.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Dyte Livestreams API
-
-Create and manage livestreams for a meeting - start streaming, fetch active-livestream status with ingest/playback details, stop a livestream, and list a meeting's livestreams.
-
-- **Human URL:** [https://docs.dyte.io/guides/rest-apis/livestream-dyte-meeting](https://docs.dyte.io/guides/rest-apis/livestream-dyte-meeting)
-- **Base URL:** `https://api.dyte.io/v2`
-
-#### Tags
-
-- Livestreams
-- RTMP
-- HLS
-
-#### Properties
-
-- [Documentation](https://docs.dyte.io/guides/rest-apis/livestream-dyte-meeting)
-- [API Reference](https://docs.dyte.io/api)
-- [OpenAPI](openapi/dyte-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dyte.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dyte.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Dyte Webhooks API
-
-Register, list, update, and delete webhook subscriptions that push real-time events (participant joined/left, recording completed, and more) to your application endpoint.
-
-- **Human URL:** [https://docs.dyte.io/api](https://docs.dyte.io/api)
-- **Base URL:** `https://api.dyte.io/v2`
-
-#### Tags
-
-- Webhooks
-- Events
-- Callbacks
-
-#### Properties
-
-- [Documentation](https://docs.dyte.io/guides/rest-apis/quickstart)
-- [API Reference](https://docs.dyte.io/api)
-- [OpenAPI](openapi/dyte-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dyte.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dyte.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/dyte-io)
-- [LinkedIn](https://www.linkedin.com/company/dyteio)
 - [Website](https://dyte.io/)
 - [Documentation](https://docs.dyte.io/)
-- [Plans](plans/dyte-plans-pricing.yml)
-- [Rate Limits](rate-limits/dyte-rate-limits.yml)
-- [Fin Ops](finops/dyte-finops.yml)
+- [GitHub](https://github.com/dyte-io)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 26.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 49.7 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 29.8 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/dyte/](https://apis.io/providers/dyte/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Dyte: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/dyte/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
